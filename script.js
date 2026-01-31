@@ -970,8 +970,7 @@ function draw() {
         drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
     }
 
-    // Debug bilgisi (geçici - test sonrası silinecek)
-    drawDebugInfo();
+    // Debug kaldırıldı
 }
 
 function gameLoop() {
