@@ -1,9 +1,4 @@
 // ============================================
-// VERSİYON KONTROLÜ (Test için - sonra silinecek)
-// ============================================
-alert('Script v20260131-B yüklendi! Bu mesajı görüyorsanız yeni kod çalışıyor.');
-
-// ============================================
 // CANVAS VE DOM ELEMENTLERI
 // ============================================
 const canvas = document.getElementById('gameCanvas');
@@ -291,7 +286,7 @@ function getBlockDimensions() {
     // MOBİL DİKEY: Dikey ekran VE genişlik 768'den küçük
     if (isPortrait && canvas.width < 768) {
         mode = 'mobile-portrait';
-        baseWidth = canvas.width * 0.75;
+        baseWidth = canvas.width * 0.90; // Çok büyük bloklar
     }
     // MOBİL YATAY: Yatay ekran VE yükseklik 500'den küçük
     else if (!isPortrait && canvas.height < 500) {
