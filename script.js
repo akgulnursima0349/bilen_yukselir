@@ -286,7 +286,7 @@ function getBlockDimensions() {
     // MOBİL DİKEY: Dikey ekran VE genişlik 1024'den küçük
     if (isPortrait && canvas.width < 1024) {
         mode = 'mobile-portrait';
-        baseWidth = canvas.width * 0.55; // Dengeli boyut
+        baseWidth = canvas.width * 0.42; // Daha küçük bloklar
     }
     // MOBİL YATAY: Yatay ekran VE yükseklik 500'den küçük
     else if (!isPortrait && canvas.height < 500) {
@@ -333,7 +333,7 @@ function drawDebugInfo() {
 
     if (isPortrait && w < 1024) {
         mode = 'mobile-portrait';
-        blokW = Math.round(w * 0.55); // 90% çok büyüktü, 55% daha dengeli
+        blokW = Math.round(w * 0.42); // Daha küçük bloklar
     } else if (!isPortrait && h < 500) {
         mode = 'mobile-landscape';
         blokW = Math.round(h * 0.5);
