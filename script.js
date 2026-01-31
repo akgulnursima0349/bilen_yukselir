@@ -728,12 +728,36 @@ function drawLegoBlock(block, yOffset, rotation = 0) {
     ctx.restore();
 }
 
+// Arka planı aspect ratio koruyarak çiz (cover gibi, zoom ile)
+function drawBackgroundCover(img, zoomLevel = 1.2) {
+    const imgRatio = img.width / img.height;
+    const canvasRatio = canvas.width / canvas.height;
+
+    let drawWidth, drawHeight, offsetX, offsetY;
+
+    if (canvasRatio > imgRatio) {
+        // Canvas daha geniş - genişliğe göre ölçekle
+        drawWidth = canvas.width * zoomLevel;
+        drawHeight = drawWidth / imgRatio;
+    } else {
+        // Canvas daha uzun - yüksekliğe göre ölçekle
+        drawHeight = canvas.height * zoomLevel;
+        drawWidth = drawHeight * imgRatio;
+    }
+
+    // Ortala ve paralaks efekti uygula
+    offsetX = (canvas.width - drawWidth) / 2;
+    offsetY = (canvas.height - drawHeight) / 2 - cameraY * 0.3;
+
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Arka plan
+    // Arka plan - aspect ratio korunarak çizilir
     if (backgroundImage.complete) {
-        ctx.drawImage(backgroundImage, 0, -cameraY * 0.5, canvas.width, canvas.height);
+        drawBackgroundCover(backgroundImage, 1.3);
 
         const skyGradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 0.4);
         skyGradient.addColorStop(0, 'rgba(135, 206, 235, 0.3)');
