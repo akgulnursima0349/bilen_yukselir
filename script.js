@@ -323,14 +323,38 @@ function getBlockDimensions() {
 // Ekranda debug bilgisi göster - BÜYÜK VE GÖRÜNÜR
 function drawDebugInfo() {
     ctx.save();
+
+    // Değerleri doğrudan hesapla
+    const isPortrait = canvas.height > canvas.width;
+    const w = canvas.width;
+    const h = canvas.height;
+    let mode = 'unknown';
+    let blokW = 0;
+
+    if (isPortrait && w < 1024) {
+        mode = 'mobile-portrait';
+        blokW = Math.round(w * 0.90);
+    } else if (!isPortrait && h < 500) {
+        mode = 'mobile-landscape';
+        blokW = Math.round(h * 0.5);
+    } else if (Math.max(w, h) > 1400) {
+        mode = 'desktop';
+        blokW = Math.round(Math.min(w * 0.2, 280));
+    } else {
+        mode = 'tablet';
+        blokW = Math.round(Math.min(w * 0.3, 220));
+    }
+
     // Ekranın üst kısmında, büyük ve kırmızı arka plan
     ctx.fillStyle = 'rgba(255, 0, 0, 0.9)';
-    ctx.fillRect(0, 0, canvas.width, 80);
+    ctx.fillRect(0, 0, canvas.width, 100);
     ctx.fillStyle = '#fff';
-    ctx.font = 'bold 18px Arial';
-    ctx.fillText(`VER: 20260131c | Mode: ${debugInfo.mode}`, 10, 25);
-    ctx.fillText(`Canvas: ${debugInfo.canvas} | Blok: ${debugInfo.blok}`, 10, 50);
-    ctx.fillText(`isPortrait: ${canvas.height > canvas.width} | w<768: ${canvas.width < 768}`, 10, 75);
+    ctx.font = 'bold 16px Arial';
+    ctx.fillText(`VER: 20260131d`, 10, 20);
+    ctx.fillText(`Mode: ${mode}`, 10, 40);
+    ctx.fillText(`Canvas: ${w}x${h}`, 10, 60);
+    ctx.fillText(`Blok: ${blokW}px | isPortrait: ${isPortrait}`, 10, 80);
+    ctx.fillText(`w<1024: ${w < 1024}`, 10, 97);
     ctx.restore();
 }
 
