@@ -283,8 +283,8 @@ function getBlockDimensions() {
     // Mod belirleme
     let mode = 'desktop';
 
-    // MOBİL DİKEY: Dikey ekran VE genişlik 768'den küçük
-    if (isPortrait && canvas.width < 768) {
+    // MOBİL DİKEY: Dikey ekran VE genişlik 1024'den küçük
+    if (isPortrait && canvas.width < 1024) {
         mode = 'mobile-portrait';
         baseWidth = canvas.width * 0.90; // Çok büyük bloklar
     }
@@ -320,16 +320,17 @@ function getBlockDimensions() {
     };
 }
 
-// Ekranda debug bilgisi göster
+// Ekranda debug bilgisi göster - BÜYÜK VE GÖRÜNÜR
 function drawDebugInfo() {
     ctx.save();
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-    ctx.fillRect(5, canvas.height - 60, 200, 55);
-    ctx.fillStyle = '#0f0';
-    ctx.font = '12px monospace';
-    ctx.fillText(`Mode: ${debugInfo.mode}`, 10, canvas.height - 45);
-    ctx.fillText(`Canvas: ${debugInfo.canvas}`, 10, canvas.height - 30);
-    ctx.fillText(`Blok: ${debugInfo.blok}`, 10, canvas.height - 15);
+    // Ekranın üst kısmında, büyük ve kırmızı arka plan
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.9)';
+    ctx.fillRect(0, 0, canvas.width, 80);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 18px Arial';
+    ctx.fillText(`VER: 20260131c | Mode: ${debugInfo.mode}`, 10, 25);
+    ctx.fillText(`Canvas: ${debugInfo.canvas} | Blok: ${debugInfo.blok}`, 10, 50);
+    ctx.fillText(`isPortrait: ${canvas.height > canvas.width} | w<768: ${canvas.width < 768}`, 10, 75);
     ctx.restore();
 }
 
