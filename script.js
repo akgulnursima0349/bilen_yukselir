@@ -227,18 +227,26 @@ function updateClouds() {
 // BLOK FONKSİYONLARI
 // ============================================
 function getBlockDimensions() {
-    // Mobilde daha büyük bloklar için ekran boyutuna göre ayarla
+    // Ekran boyutu ve yönüne göre blok boyutlarını ayarla
+    const isLandscape = canvas.width > canvas.height;
+    const smallerDimension = Math.min(canvas.width, canvas.height);
+
     let baseWidth;
-    if (canvas.width <= 480) {
-        // Küçük telefon ekranları - blokları büyüt
-        baseWidth = Math.min(canvas.width * 0.38, 160);
+
+    if (isLandscape && smallerDimension <= 500) {
+        // Mobil yatay mod - yüksekliğe göre ölçekle
+        baseWidth = Math.min(canvas.height * 0.35, 140);
+    } else if (canvas.width <= 480) {
+        // Küçük telefon dikey - ekrana göre büyük bloklar
+        baseWidth = Math.min(canvas.width * 0.4, 150);
     } else if (canvas.width <= 768) {
-        // Tablet ve büyük telefon ekranları
-        baseWidth = Math.min(canvas.width * 0.35, 180);
+        // Tablet ve büyük telefon
+        baseWidth = Math.min(canvas.width * 0.32, 170);
     } else {
         // PC ve büyük ekranlar
-        baseWidth = Math.min(canvas.width * 0.28, 220);
+        baseWidth = Math.min(canvas.width * 0.25, 200);
     }
+
     return {
         width: baseWidth,
         height: baseWidth * 0.55,

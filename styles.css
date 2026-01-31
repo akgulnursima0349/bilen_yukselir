@@ -85,6 +85,7 @@ body {
     align-items: center;
     z-index: 100;
     padding: 20px;
+    overflow-y: auto;
 }
 
 #startScreen::before {
@@ -896,117 +897,40 @@ body {
     100% { transform: translate(-50%, -70%) scale(1); opacity: 0; }
 }
 
-/* Responsive - Mobil */
-@media (max-width: 768px) {
-    .start-container {
-        flex-direction: column;
-        gap: 20px;
+/* ============================================
+   RESPONSIVE - MOBİL DİKEY (Portrait)
+============================================ */
+@media (max-width: 768px) and (orientation: portrait) {
+    #startScreen {
+        align-items: flex-start;
         padding: 15px;
     }
-    /* Mobilde kurallar üstte, oyun görseli ve play butonu altta */
-    .left-side {
-        order: 1;
-    }
-    .right-side {
-        order: 2;
-    }
-    .game-title {
-        font-size: 2.8rem;
-        margin-bottom: 15px;
-    }
-    .rules-box {
-        padding: 18px 22px;
-        max-width: 350px;
-    }
-    .rules-box h2 {
-        font-size: 1.4rem;
-        margin-bottom: 12px;
-    }
-    .rules-box li {
-        font-size: 1.05rem;
-        padding: 10px 0;
-    }
-    .preview-area {
-        width: 280px;
-        height: 320px;
-    }
-    .preview-tower img, .crane-block img {
-        width: 80px;
-    }
-    .preview-crane img.hook-img {
-        width: 60px;
-    }
-    #playButton {
-        width: 120px;
-        height: 120px;
-    }
-    #playButton::after {
-        border-left-width: 40px;
-        border-top-width: 25px;
-        border-bottom-width: 25px;
-    }
-    .timer-display {
-        padding: 12px 25px;
-    }
-    .timer-icon, .timer-value {
-        font-size: 2.4rem;
-    }
-    .timer-progress {
-        width: 120px;
-    }
-    .modal-content {
-        padding: 25px;
-        width: 92%;
-        max-width: 420px;
-    }
-    .question-text {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-    }
-    .options-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-    .ui-item {
-        padding: 8px 14px;
-    }
-    .ui-item span {
-        font-size: 1.2rem;
-    }
-    .ui-item img {
-        width: 32px;
-        height: 32px;
-    }
-    .question-image {
-        max-width: 180px;
-        max-height: 140px;
-    }
-    .option-btn {
-        padding: 16px 14px;
-        font-size: 1.1rem;
-    }
-    .option-btn.with-image img {
-        width: 55px;
-        height: 55px;
-    }
-}
-
-/* Çok küçük ekranlar (telefon) */
-@media (max-width: 480px) {
     .start-container {
+        flex-direction: column;
         gap: 15px;
         padding: 10px;
+        width: 100%;
+    }
+    /* Mobil dikeyde: Başlık ve kurallar üstte */
+    .left-side {
+        order: 1;
+        width: 100%;
+    }
+    /* Oyun görseli ve play butonu altta */
+    .right-side {
+        order: 2;
+        width: 100%;
     }
     .game-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
         margin-bottom: 10px;
     }
     .rules-box {
-        padding: 15px 18px;
-        max-width: 300px;
+        padding: 15px 20px;
+        max-width: 100%;
     }
     .rules-box h2 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         margin-bottom: 10px;
     }
     .rules-box li {
@@ -1015,17 +939,21 @@ body {
         gap: 10px;
     }
     .rules-box li::before {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .preview-area {
-        width: 240px;
-        height: 280px;
+        width: 220px;
+        height: 250px;
+        margin-bottom: 15px;
     }
     .preview-tower img, .crane-block img {
-        width: 70px;
+        width: 65px;
     }
     .preview-crane img.hook-img {
         width: 50px;
+    }
+    .crane-block {
+        margin-top: -12px;
     }
     #playButton {
         width: 100px;
@@ -1035,46 +963,255 @@ body {
         border-left-width: 32px;
         border-top-width: 20px;
         border-bottom-width: 20px;
+        margin-left: 8px;
+    }
+    /* Soru modalı */
+    #questionModal {
+        padding-top: 10px;
     }
     .timer-display {
-        padding: 10px 18px;
+        padding: 10px 20px;
+        margin-bottom: 15px;
     }
     .timer-icon, .timer-value {
         font-size: 2rem;
     }
     .timer-progress {
-        width: 90px;
+        width: 100px;
     }
     .modal-content {
         padding: 20px;
-        width: 94%;
+        width: 95%;
+        max-width: none;
     }
     .question-text {
-        font-size: 1.15rem;
-        margin-bottom: 18px;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    .options-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .option-btn {
+        padding: 14px 12px;
+        font-size: 1rem;
+    }
+    /* UI Overlay */
+    .ui-item {
+        padding: 6px 12px;
+    }
+    .ui-item span {
+        font-size: 1.1rem;
+    }
+    .ui-item img {
+        width: 28px;
+        height: 28px;
+    }
+    .question-image {
+        max-width: 160px;
+        max-height: 120px;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - MOBİL YATAY (Landscape)
+============================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+    #startScreen {
+        padding: 10px;
+        align-items: center;
+    }
+    .start-container {
+        flex-direction: row;
+        gap: 20px;
+        padding: 5px;
+        max-width: 100%;
+        align-items: center;
+    }
+    .left-side {
+        flex: 1;
+        order: 1;
+    }
+    .right-side {
+        flex: 1;
+        order: 2;
+    }
+    .game-title {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+    }
+    .rules-box {
+        padding: 10px 15px;
+        max-width: 100%;
+    }
+    .rules-box h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    .rules-box li {
+        font-size: 0.85rem;
+        padding: 5px 0;
+        gap: 8px;
+    }
+    .rules-box li::before {
+        font-size: 1rem;
+    }
+    .preview-area {
+        width: 180px;
+        height: 200px;
+        margin-bottom: 10px;
+    }
+    .preview-tower img, .crane-block img {
+        width: 55px;
+    }
+    .preview-crane img.hook-img {
+        width: 40px;
+    }
+    .crane-block {
+        margin-top: -10px;
+    }
+    .preview-tower {
+        bottom: 25px;
+    }
+    .preview-ground {
+        height: 25px;
+    }
+    #playButton {
+        width: 80px;
+        height: 80px;
+    }
+    #playButton::after {
+        border-left-width: 26px;
+        border-top-width: 16px;
+        border-bottom-width: 16px;
+        margin-left: 6px;
+    }
+    /* Soru modalı - yatay modda */
+    #questionModal {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 15px;
+    }
+    .timer-display {
+        flex-direction: column;
+        padding: 10px 15px;
+        margin-bottom: 0;
+        gap: 5px;
+    }
+    .timer-icon, .timer-value {
+        font-size: 1.5rem;
+    }
+    .timer-progress {
+        width: 80px;
+        height: 8px;
+    }
+    .modal-content {
+        padding: 15px;
+        width: auto;
+        max-width: 70%;
+    }
+    .question-text {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
     }
     .options-grid {
         grid-template-columns: 1fr 1fr;
         gap: 8px;
     }
     .option-btn {
-        padding: 14px 10px;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+    /* UI Overlay */
+    .ui-item {
+        padding: 5px 10px;
+    }
+    .ui-item span {
         font-size: 1rem;
     }
-    .score-popup {
-        padding: 20px 30px;
+    .ui-item img {
+        width: 24px;
+        height: 24px;
     }
-    .game-complete-box {
-        padding: 25px 35px;
+    .question-image {
+        max-width: 120px;
+        max-height: 90px;
     }
-    .game-complete-icon {
-        font-size: 3.5rem;
+    /* Bitiş ekranı */
+    .celebration-content {
+        padding: 10px;
     }
-    .game-complete-title {
+    .trophy-icon {
+        font-size: 2.5rem;
+    }
+    .end-title {
         font-size: 1.8rem;
     }
-    .game-complete-score {
-        font-size: 3rem;
+    .score-box {
+        padding: 12px 25px;
+    }
+    .final-score-value {
+        font-size: 2.5rem;
+    }
+    #restartButton {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   RESPONSIVE - ÇOK KÜÇÜK EKRANLAR (Telefon dikey)
+============================================ */
+@media (max-width: 400px) and (orientation: portrait) {
+    .start-container {
+        gap: 10px;
+        padding: 5px;
+    }
+    .game-title {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    .rules-box {
+        padding: 12px 15px;
+    }
+    .rules-box h2 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    .rules-box li {
+        font-size: 0.85rem;
+        padding: 6px 0;
+    }
+    .preview-area {
+        width: 180px;
+        height: 210px;
+    }
+    .preview-tower img, .crane-block img {
+        width: 55px;
+    }
+    .preview-crane img.hook-img {
+        width: 40px;
+    }
+    #playButton {
+        width: 85px;
+        height: 85px;
+    }
+    #playButton::after {
+        border-left-width: 28px;
+        border-top-width: 17px;
+        border-bottom-width: 17px;
+    }
+    .modal-content {
+        padding: 15px;
+    }
+    .question-text {
+        font-size: 1.05rem;
+    }
+    .option-btn {
+        padding: 12px 10px;
+        font-size: 0.95rem;
     }
 }
 
