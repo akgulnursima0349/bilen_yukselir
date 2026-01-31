@@ -274,29 +274,34 @@ function updateClouds() {
 function getBlockDimensions() {
     // Direkt canvas boyutuna göre blok boyutu hesapla
     let baseWidth;
-    const isLandscape = canvas.width > canvas.height;
+    const isPortrait = canvas.height > canvas.width;
     const smallerDim = Math.min(canvas.width, canvas.height);
 
-    // Mobil dikey: canvas.width < 500
-    if (!isLandscape && canvas.width < 500) {
-        // MOBİL DİKEY - DEV BLOKLAR
+    // Mod belirleme
+    let mode = 'desktop';
+
+    // MOBİL DİKEY: Dikey ekran VE genişlik 768'den küçük
+    if (isPortrait && canvas.width < 768) {
+        mode = 'mobile-portrait';
         baseWidth = canvas.width * 0.75;
     }
-    // Mobil yatay: canvas.height < 500
-    else if (isLandscape && canvas.height < 500) {
-        // MOBİL YATAY
+    // MOBİL YATAY: Yatay ekran VE yükseklik 500'den küçük
+    else if (!isPortrait && canvas.height < 500) {
+        mode = 'mobile-landscape';
         baseWidth = canvas.height * 0.5;
     }
-    // Tablet boyutu: 500-1000px arası
-    else if (smallerDim < 1000) {
+    // TABLET: 768-1200px arası
+    else if (smallerDim < 1200) {
+        mode = 'tablet';
         baseWidth = Math.min(canvas.width * 0.3, 220);
     }
-    // Büyük ekran (PC/Akıllı tahta)
+    // BÜYÜK EKRAN (PC/Akıllı tahta)
     else {
+        mode = 'desktop';
         baseWidth = Math.min(canvas.width * 0.25, 280);
     }
 
-    console.log(`Canvas: ${canvas.width}x${canvas.height}, Blok: ${baseWidth}px`);
+    console.log(`[BLOK] Mode: ${mode}, Canvas: ${canvas.width}x${canvas.height}, Blok: ${baseWidth}px`);
 
     return {
         width: baseWidth,
