@@ -286,7 +286,7 @@ function getBlockDimensions() {
     // MOBİL DİKEY: Dikey ekran VE genişlik 1024'den küçük
     if (isPortrait && canvas.width < 1024) {
         mode = 'mobile-portrait';
-        baseWidth = canvas.width * 0.42; // Daha küçük bloklar
+        baseWidth = canvas.width * 0.35; // Küçültülmüş bloklar
     }
     // MOBİL YATAY: Yatay ekran VE yükseklik 500'den küçük
     else if (!isPortrait && canvas.height < 500) {
@@ -333,7 +333,7 @@ function drawDebugInfo() {
 
     if (isPortrait && w < 1024) {
         mode = 'mobile-portrait';
-        blokW = Math.round(w * 0.42); // Daha küçük bloklar
+        blokW = Math.round(w * 0.35); // Küçültülmüş bloklar
     } else if (!isPortrait && h < 500) {
         mode = 'mobile-landscape';
         blokW = Math.round(h * 0.5);
@@ -563,7 +563,7 @@ function startStacking() {
     hook.baseY = cameraY + 70;
     hook.y = hook.baseY;
     hook.swingPhase = 0;
-    hook.speed = 1.2 + (level * 0.15);
+    hook.speed = 2.5 + (level * 0.1); // Daha hızlı kanca hareketi
 }
 
 function dropBlock() {
