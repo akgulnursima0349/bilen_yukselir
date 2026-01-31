@@ -271,6 +271,9 @@ function updateClouds() {
 // ============================================
 // BLOK FONKSİYONLARI
 // ============================================
+// Debug bilgisi (geçici)
+let debugInfo = { mode: '', canvas: '', blok: '' };
+
 function getBlockDimensions() {
     // Direkt canvas boyutuna göre blok boyutu hesapla
     let baseWidth;
@@ -301,6 +304,13 @@ function getBlockDimensions() {
         baseWidth = Math.min(canvas.width * 0.25, 280);
     }
 
+    // Debug bilgisini güncelle
+    debugInfo = {
+        mode: mode,
+        canvas: `${canvas.width}x${canvas.height}`,
+        blok: `${Math.round(baseWidth)}px`
+    };
+
     console.log(`[BLOK] Mode: ${mode}, Canvas: ${canvas.width}x${canvas.height}, Blok: ${baseWidth}px`);
 
     return {
@@ -308,6 +318,19 @@ function getBlockDimensions() {
         height: baseWidth * 0.55,
         studHeight: baseWidth * 0.18
     };
+}
+
+// Ekranda debug bilgisi göster
+function drawDebugInfo() {
+    ctx.save();
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+    ctx.fillRect(5, canvas.height - 60, 200, 55);
+    ctx.fillStyle = '#0f0';
+    ctx.font = '12px monospace';
+    ctx.fillText(`Mode: ${debugInfo.mode}`, 10, canvas.height - 45);
+    ctx.fillText(`Canvas: ${debugInfo.canvas}`, 10, canvas.height - 30);
+    ctx.fillText(`Blok: ${debugInfo.blok}`, 10, canvas.height - 15);
+    ctx.restore();
 }
 
 function getGroundY() {
@@ -921,6 +944,9 @@ function draw() {
         // Blok
         drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
     }
+
+    // Debug bilgisi (geçici - test sonrası silinecek)
+    drawDebugInfo();
 }
 
 function gameLoop() {
