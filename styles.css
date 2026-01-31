@@ -965,37 +965,40 @@ body {
         border-bottom-width: 18px;
         margin-left: 6px;
     }
-    /* Soru modalı - BÜYÜK */
+    /* Soru modalı - ÇOK BÜYÜK */
     #questionModal {
-        padding-top: 15px;
+        padding-top: 10px;
         justify-content: center;
     }
     .timer-display {
-        padding: 12px 22px;
-        margin-bottom: 15px;
+        padding: 14px 28px;
+        margin-bottom: 12px;
     }
     .timer-icon, .timer-value {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     .timer-progress {
-        width: 110px;
+        width: 130px;
+        height: 14px;
     }
     .modal-content {
-        padding: 25px;
-        width: 92%;
-        max-width: 400px;
+        padding: 28px;
+        width: 95%;
+        max-width: 450px;
     }
     .question-text {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
+        font-size: 1.5rem;
+        margin-bottom: 22px;
+        line-height: 1.4;
     }
     .options-grid {
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 14px;
     }
     .option-btn {
-        padding: 16px 14px;
-        font-size: 1.1rem;
+        padding: 20px 16px;
+        font-size: 1.2rem;
+        border-radius: 18px;
     }
     /* UI Overlay */
     .ui-item {

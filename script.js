@@ -293,13 +293,13 @@ function getBlockDimensions() {
             break;
 
         case 'mobile':
-            // Mobil telefon - BÜYÜK
+            // Mobil telefon - ÇOK BÜYÜK
             if (isLandscape) {
                 // Yatay modda yüksekliğe göre
                 baseWidth = Math.min(canvas.height * 0.5, 180);
             } else {
-                // Dikey modda genişliğe göre
-                baseWidth = Math.min(canvas.width * 0.48, 200);
+                // Dikey modda - EKSTRA BÜYÜK bloklar
+                baseWidth = Math.min(canvas.width * 0.55, 220);
             }
             break;
 
