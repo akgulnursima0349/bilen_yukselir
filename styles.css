@@ -898,9 +898,9 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE - MOBİL (768px ve altı)
+   RESPONSIVE - MOBİL (1200px ve altı - yüksek çözünürlüklü telefonlar dahil)
 ============================================ */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
     #startScreen {
         align-items: flex-start;
         padding: 10px;
