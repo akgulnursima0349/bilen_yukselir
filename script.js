@@ -1,4 +1,9 @@
 // ============================================
+// VERSİYON KONTROLÜ (Test için - sonra silinecek)
+// ============================================
+alert('Script v20260131-B yüklendi! Bu mesajı görüyorsanız yeni kod çalışıyor.');
+
+// ============================================
 // CANVAS VE DOM ELEMENTLERI
 // ============================================
 const canvas = document.getElementById('gameCanvas');
