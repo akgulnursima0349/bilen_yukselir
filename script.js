@@ -278,7 +278,7 @@ function getBlockDimensions() {
     // Direkt canvas boyutuna göre blok boyutu hesapla
     let baseWidth;
     const isPortrait = canvas.height > canvas.width;
-    const smallerDim = Math.min(canvas.width, canvas.height);
+    const largerDim = Math.max(canvas.width, canvas.height);
 
     // Mod belirleme
     let mode = 'desktop';
@@ -293,15 +293,15 @@ function getBlockDimensions() {
         mode = 'mobile-landscape';
         baseWidth = canvas.height * 0.5;
     }
-    // TABLET: 768-1200px arası
-    else if (smallerDim < 1200) {
+    // BÜYÜK EKRAN: Geniş ekran (width > 1400) veya her iki boyut da büyük
+    else if (largerDim > 1400) {
+        mode = 'desktop';
+        baseWidth = Math.min(canvas.width * 0.2, 280);
+    }
+    // TABLET: Geri kalan orta boy ekranlar
+    else {
         mode = 'tablet';
         baseWidth = Math.min(canvas.width * 0.3, 220);
-    }
-    // BÜYÜK EKRAN (PC/Akıllı tahta)
-    else {
-        mode = 'desktop';
-        baseWidth = Math.min(canvas.width * 0.25, 280);
     }
 
     // Debug bilgisini güncelle
