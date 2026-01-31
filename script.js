@@ -279,8 +279,8 @@ function getBlockDimensions() {
 
     // Mobil dikey: canvas.width < 500
     if (!isLandscape && canvas.width < 500) {
-        // MOBİL DİKEY - ÇOK BÜYÜK BLOKLAR
-        baseWidth = canvas.width * 0.6;
+        // MOBİL DİKEY - DEV BLOKLAR
+        baseWidth = canvas.width * 0.75;
     }
     // Mobil yatay: canvas.height < 500
     else if (isLandscape && canvas.height < 500) {
