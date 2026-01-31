@@ -272,40 +272,31 @@ function updateClouds() {
 // BLOK FONKSİYONLARI
 // ============================================
 function getBlockDimensions() {
-    // Cihaz tipine göre blok boyutlarını ayarla - BÜYÜK BLOKLAR
+    // Direkt canvas boyutuna göre blok boyutu hesapla
     let baseWidth;
     const isLandscape = canvas.width > canvas.height;
+    const smallerDim = Math.min(canvas.width, canvas.height);
 
-    switch (DeviceDetector.type) {
-        case 'smartboard':
-            // Akıllı tahta: Çok büyük bloklar (sınıfta uzaktan görünsün)
-            baseWidth = Math.min(canvas.width * 0.28, 320);
-            break;
-
-        case 'desktop':
-            // Masaüstü PC: Büyük bloklar
-            baseWidth = Math.min(canvas.width * 0.26, 260);
-            break;
-
-        case 'tablet':
-            // Tablet: Büyük bloklar
-            baseWidth = Math.min(canvas.width * 0.32, 220);
-            break;
-
-        case 'mobile':
-            // Mobil telefon - MAKSİMUM BÜYÜK
-            if (isLandscape) {
-                // Yatay modda yüksekliğe göre
-                baseWidth = Math.min(canvas.height * 0.55, 200);
-            } else {
-                // Dikey modda - MAKSİMUM bloklar
-                baseWidth = Math.min(canvas.width * 0.65, 280);
-            }
-            break;
-
-        default:
-            baseWidth = Math.min(canvas.width * 0.26, 260);
+    // Mobil dikey: canvas.width < 500
+    if (!isLandscape && canvas.width < 500) {
+        // MOBİL DİKEY - ÇOK BÜYÜK BLOKLAR
+        baseWidth = canvas.width * 0.6;
     }
+    // Mobil yatay: canvas.height < 500
+    else if (isLandscape && canvas.height < 500) {
+        // MOBİL YATAY
+        baseWidth = canvas.height * 0.5;
+    }
+    // Tablet boyutu: 500-1000px arası
+    else if (smallerDim < 1000) {
+        baseWidth = Math.min(canvas.width * 0.3, 220);
+    }
+    // Büyük ekran (PC/Akıllı tahta)
+    else {
+        baseWidth = Math.min(canvas.width * 0.25, 280);
+    }
+
+    console.log(`Canvas: ${canvas.width}x${canvas.height}, Blok: ${baseWidth}px`);
 
     return {
         width: baseWidth,
