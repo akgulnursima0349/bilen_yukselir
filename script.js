@@ -272,39 +272,39 @@ function updateClouds() {
 // BLOK FONKSİYONLARI
 // ============================================
 function getBlockDimensions() {
-    // Cihaz tipine göre blok boyutlarını ayarla
+    // Cihaz tipine göre blok boyutlarını ayarla - BÜYÜK BLOKLAR
     let baseWidth;
     const isLandscape = canvas.width > canvas.height;
 
     switch (DeviceDetector.type) {
         case 'smartboard':
-            // Akıllı tahta: Büyük bloklar (sınıfta uzaktan görünsün)
-            baseWidth = Math.min(canvas.width * 0.22, 250);
+            // Akıllı tahta: Çok büyük bloklar (sınıfta uzaktan görünsün)
+            baseWidth = Math.min(canvas.width * 0.28, 320);
             break;
 
         case 'desktop':
-            // Masaüstü PC: Orta-büyük bloklar
-            baseWidth = Math.min(canvas.width * 0.2, 180);
+            // Masaüstü PC: Büyük bloklar
+            baseWidth = Math.min(canvas.width * 0.26, 260);
             break;
 
         case 'tablet':
-            // Tablet: Orta bloklar
-            baseWidth = Math.min(canvas.width * 0.25, 160);
+            // Tablet: Büyük bloklar
+            baseWidth = Math.min(canvas.width * 0.32, 220);
             break;
 
         case 'mobile':
-            // Mobil telefon
+            // Mobil telefon - BÜYÜK
             if (isLandscape) {
                 // Yatay modda yüksekliğe göre
-                baseWidth = Math.min(canvas.height * 0.38, 130);
+                baseWidth = Math.min(canvas.height * 0.5, 180);
             } else {
                 // Dikey modda genişliğe göre
-                baseWidth = Math.min(canvas.width * 0.38, 140);
+                baseWidth = Math.min(canvas.width * 0.48, 200);
             }
             break;
 
         default:
-            baseWidth = Math.min(canvas.width * 0.2, 180);
+            baseWidth = Math.min(canvas.width * 0.26, 260);
     }
 
     return {
