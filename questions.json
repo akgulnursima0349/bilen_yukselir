@@ -1,0 +1,148 @@
+{
+  "questions": [
+    {
+      "question": "Hangi gezegen Güneş'e en yakındır?",
+      "options": ["Merkür", "Venüs", "Mars", "Dünya"],
+      "correct": 0
+    },
+    {
+      "question": "Gökkuşağında kaç renk vardır?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "question": "Arılar ne üretir?",
+      "options": ["Süt", "Bal", "Yumurta", "Peynir"],
+      "correct": 1
+    },
+    {
+      "question": "Bir yılda kaç ay vardır?",
+      "options": ["10", "11", "12", "13"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi hayvan havlamaz?",
+      "options": ["Köpek", "Kedi", "Kurt", "Tilki"],
+      "correct": 1
+    },
+    {
+      "question": "Güneş hangi yönden doğar?",
+      "options": ["Batı", "Kuzey", "Güney", "Doğu"],
+      "correct": 3
+    },
+    {
+      "question": "Su hangi sıcaklıkta donar?",
+      "options": ["10°C", "0°C", "-10°C", "5°C"],
+      "correct": 1
+    },
+    {
+      "question": "Fil hangi kıtada yaşar?",
+      "options": ["Avrupa", "Antarktika", "Afrika", "Avustralya"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi meyve sarı renklidir?",
+      "options": ["Elma", "Muz", "Üzüm", "Erik"],
+      "correct": 1
+    },
+    {
+      "question": "Bir üçgenin kaç kenarı vardır?",
+      "options": ["2", "3", "4", "5"],
+      "correct": 1
+    },
+    {
+      "question": "Hangi hayvan uçabilir?",
+      "options": ["Balık", "Yılan", "Kuş", "Kaplumbağa"],
+      "correct": 2
+    },
+    {
+      "question": "Bir haftada kaç gün vardır?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi renk kırmızı ve mavi karışımıdır?",
+      "options": ["Turuncu", "Yeşil", "Mor", "Sarı"],
+      "correct": 2
+    },
+    {
+      "question": "Penguenler nerede yaşar?",
+      "options": ["Çölde", "Ormanda", "Antarktika'da", "Dağda"],
+      "correct": 2
+    },
+    {
+      "question": "5 + 3 kaç eder?",
+      "options": ["6", "7", "8", "9"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi hayvan yavaş hareket eder?",
+      "options": ["Çita", "Kaplumbağa", "Tavşan", "Kartal"],
+      "correct": 1
+    },
+    {
+      "question": "Hangi sebze turuncu renklidir?",
+      "options": ["Domates", "Havuç", "Salatalık", "Patlıcan"],
+      "correct": 1
+    },
+    {
+      "question": "10 - 4 kaç eder?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 1
+    },
+    {
+      "question": "Hangi mevsimde yapraklar dökülür?",
+      "options": ["İlkbahar", "Yaz", "Sonbahar", "Kış"],
+      "correct": 2
+    },
+    {
+      "question": "2 x 3 kaç eder?",
+      "options": ["5", "6", "7", "8"],
+      "correct": 1
+    }
+  ],
+
+  "_format_ornekleri": {
+    "_aciklama": "Bu bölüm sadece örnek göstermek içindir, sorulara dahil edilmez",
+
+    "gorsel_soru_ornegi": {
+      "question": "Bu hayvan hangisidir?",
+      "questionImage": "Assets/questions/elephant.png",
+      "options": ["Fil", "Zürafa", "Aslan", "Ayı"],
+      "correct": 0
+    },
+
+    "gorsel_siklar_ornegi": {
+      "question": "Hangi meyve elmadır?",
+      "options": [
+        { "text": "Elma", "image": "Assets/questions/apple.png" },
+        { "text": "Muz", "image": "Assets/questions/banana.png" },
+        { "text": "Portakal", "image": "Assets/questions/orange.png" },
+        { "text": "Üzüm", "image": "Assets/questions/grape.png" }
+      ],
+      "correct": 0
+    },
+
+    "seviye_ve_konu_ornegi": {
+      "level": 2,
+      "topic": "Matematik",
+      "question": "15 + 7 kaç eder?",
+      "options": ["20", "21", "22", "23"],
+      "correct": 2
+    },
+
+    "tam_ozellikli_ornek": {
+      "level": 3,
+      "topic": "Hayvanlar",
+      "question": "Bu hayvanın adı nedir?",
+      "questionImage": "Assets/questions/lion.png",
+      "options": [
+        { "text": "Aslan", "image": "Assets/questions/opt_lion.png" },
+        { "text": "Kaplan", "image": "Assets/questions/opt_tiger.png" },
+        { "text": "Leopar", "image": "Assets/questions/opt_leopard.png" },
+        { "text": "Çita", "image": "Assets/questions/opt_cheetah.png" }
+      ],
+      "correct": 0
+    }
+  }
+}

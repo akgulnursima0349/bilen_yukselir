@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Bilen Yükselir - Kule Oyunu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- UI Overlay -->
+        <div id="uiOverlay" class="hidden">
+            <div class="ui-item">
+                <span class="ui-icon">❓</span>
+                <span id="levelDisplay">0/10</span>
+            </div>
+            <div class="ui-item">
+                <img src="Assets/point_count.png" alt="Score">
+                <span id="scoreDisplay">0</span>
+            </div>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="startScreen">
+            <div class="start-container">
+                <div class="left-side">
+                    <h1 class="game-title">Bilen<br>Yükselir!</h1>
+                    <div class="rules-box">
+                        <h2>Bilen Yükselir</h2>
+                        <ul>
+                            <li>Her doğru cevap kuleyi yükseltme şansı verir.</li>
+                            <li>Blokları dengeli yerleştirmelisin.</li>
+                            <li>Kule yükseldikçe puanın artar.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <div class="preview-area">
+                        <!-- Hareket eden vinç ve blok -->
+                        <div class="preview-crane-container">
+                            <div class="preview-crane">
+                                <img src="Assets/hook.png" alt="Vinç" class="hook-img">
+                                <div class="crane-block">
+                                    <img src="Assets/orange_brick.png" alt="Blok">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Sabit kule -->
+                        <div class="preview-tower">
+                            <img src="Assets/red_brick.png" alt="Lego">
+                            <img src="Assets/yellow_brick.png" alt="Lego">
+                            <img src="Assets/blue_brick.png" alt="Lego">
+                        </div>
+                        <div class="preview-ground"></div>
+                    </div>
+                    <button id="playButton" aria-label="Oyunu Başlat"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Modal -->
+        <div id="questionModal" class="hidden">
+            <div class="timer-display">
+                <span class="timer-icon" id="timerIcon">⏰</span>
+                <span class="timer-value" id="timerValue">10</span>
+                <div class="timer-progress">
+                    <div class="timer-progress-fill" id="timerProgressFill"></div>
+                </div>
+            </div>
+            <div class="modal-content">
+                <div class="question-text" id="questionText">Soru yükleniyor...</div>
+                <div class="options-grid" id="optionsGrid"></div>
+            </div>
+        </div>
+
+        <!-- End Screen - Kutlama -->
+        <div id="endScreen" class="hidden">
+            <div class="confetti-container" id="confettiContainer"></div>
+            <div class="celebration-content">
+                <div class="trophy-icon">🏆</div>
+                <h1 class="end-title">TEBRİKLER!</h1>
+                <div class="score-box">
+                    <div class="score-label">Toplam Puanın</div>
+                    <div class="final-score-value" id="finalScore">0</div>
+                    <div class="stars-row">
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                    </div>
+                </div>
+                <button id="restartButton">🎮 Tekrar Oyna</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
