@@ -89,7 +89,7 @@ let timeLeft = 10;
 // ============================================
 // ESNEK SORU SİSTEMİ
 // ============================================
-// Sorular artık şu formatlarda olabilir:
+// Sorular şu formatlarda olabilir:
 // 1. Basit format (mevcut): { question: "...", options: ["A", "B", "C", "D"], correct: 0 }
 // 2. Görsel soru: { question: "...", questionImage: "path/to/image.png", options: [...], correct: 0 }
 // 3. Görsel şıklar: { question: "...", options: [{ text: "A", image: "path.png" }, ...], correct: 0 }
@@ -227,7 +227,18 @@ function updateClouds() {
 // BLOK FONKSİYONLARI
 // ============================================
 function getBlockDimensions() {
-    const baseWidth = Math.min(canvas.width * 0.28, 200);
+    // Mobilde daha büyük bloklar için ekran boyutuna göre ayarla
+    let baseWidth;
+    if (canvas.width <= 480) {
+        // Küçük telefon ekranları - blokları büyüt
+        baseWidth = Math.min(canvas.width * 0.38, 160);
+    } else if (canvas.width <= 768) {
+        // Tablet ve büyük telefon ekranları
+        baseWidth = Math.min(canvas.width * 0.35, 180);
+    } else {
+        // PC ve büyük ekranlar
+        baseWidth = Math.min(canvas.width * 0.28, 220);
+    }
     return {
         width: baseWidth,
         height: baseWidth * 0.55,
