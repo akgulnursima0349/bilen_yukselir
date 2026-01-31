@@ -75,6 +75,51 @@ const SoundManager = {
 };
 
 // ============================================
+// CİHAZ TESPİT SİSTEMİ
+// ============================================
+const DeviceDetector = {
+    type: 'desktop', // 'mobile', 'tablet', 'smartboard', 'desktop'
+
+    detect() {
+        const ua = navigator.userAgent.toLowerCase();
+        const touchPoints = navigator.maxTouchPoints || 0;
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const maxDimension = Math.max(screenWidth, screenHeight);
+        const minDimension = Math.min(screenWidth, screenHeight);
+
+        // Akıllı tahta: Büyük dokunmatik ekran (genellikle 1920x1080 veya daha büyük)
+        if (touchPoints > 0 && minDimension >= 1000 && maxDimension >= 1800) {
+            this.type = 'smartboard';
+        }
+        // Mobil telefon: Küçük ekran ve mobil user agent
+        else if (/android|iphone|ipod|mobile/i.test(ua) || (touchPoints > 0 && maxDimension <= 900)) {
+            this.type = 'mobile';
+        }
+        // Tablet: Orta boy dokunmatik ekran
+        else if (/ipad|tablet|android/i.test(ua) || (touchPoints > 0 && maxDimension <= 1400)) {
+            this.type = 'tablet';
+        }
+        // Masaüstü: Geri kalan her şey
+        else {
+            this.type = 'desktop';
+        }
+
+        console.log(`Cihaz tipi: ${this.type} (Ekran: ${screenWidth}x${screenHeight}, Touch: ${touchPoints})`);
+        return this.type;
+    },
+
+    isMobile() { return this.type === 'mobile'; },
+    isTablet() { return this.type === 'tablet'; },
+    isSmartboard() { return this.type === 'smartboard'; },
+    isDesktop() { return this.type === 'desktop'; },
+    isTouchDevice() { return this.type !== 'desktop'; }
+};
+
+// Cihazı tespit et
+DeviceDetector.detect();
+
+// ============================================
 // OYUN DURUMU
 // ============================================
 let gameState = 'start';
@@ -227,24 +272,39 @@ function updateClouds() {
 // BLOK FONKSİYONLARI
 // ============================================
 function getBlockDimensions() {
-    // Ekran boyutu ve yönüne göre blok boyutlarını ayarla
-    const isLandscape = canvas.width > canvas.height;
-    const smallerDimension = Math.min(canvas.width, canvas.height);
-
+    // Cihaz tipine göre blok boyutlarını ayarla
     let baseWidth;
+    const isLandscape = canvas.width > canvas.height;
 
-    if (isLandscape && smallerDimension <= 500) {
-        // Mobil yatay mod - yüksekliğe göre ölçekle
-        baseWidth = Math.min(canvas.height * 0.35, 140);
-    } else if (canvas.width <= 480) {
-        // Küçük telefon dikey - ekrana göre büyük bloklar
-        baseWidth = Math.min(canvas.width * 0.4, 150);
-    } else if (canvas.width <= 768) {
-        // Tablet ve büyük telefon
-        baseWidth = Math.min(canvas.width * 0.32, 170);
-    } else {
-        // PC ve büyük ekranlar
-        baseWidth = Math.min(canvas.width * 0.25, 200);
+    switch (DeviceDetector.type) {
+        case 'smartboard':
+            // Akıllı tahta: Büyük bloklar (sınıfta uzaktan görünsün)
+            baseWidth = Math.min(canvas.width * 0.22, 250);
+            break;
+
+        case 'desktop':
+            // Masaüstü PC: Orta-büyük bloklar
+            baseWidth = Math.min(canvas.width * 0.2, 180);
+            break;
+
+        case 'tablet':
+            // Tablet: Orta bloklar
+            baseWidth = Math.min(canvas.width * 0.25, 160);
+            break;
+
+        case 'mobile':
+            // Mobil telefon
+            if (isLandscape) {
+                // Yatay modda yüksekliğe göre
+                baseWidth = Math.min(canvas.height * 0.38, 130);
+            } else {
+                // Dikey modda genişliğe göre
+                baseWidth = Math.min(canvas.width * 0.38, 140);
+            }
+            break;
+
+        default:
+            baseWidth = Math.min(canvas.width * 0.2, 180);
     }
 
     return {
@@ -728,7 +788,7 @@ function drawLegoBlock(block, yOffset, rotation = 0) {
     ctx.restore();
 }
 
-// Arka planı aspect ratio koruyarak çiz (cover gibi, zoom ile)
+// Arka planı aspect ratio koruyarak çiz (cover gibi, zemin hizalı)
 function drawBackgroundCover(img, zoomLevel = 1.2) {
     const imgRatio = img.width / img.height;
     const canvasRatio = canvas.width / canvas.height;
@@ -745,9 +805,20 @@ function drawBackgroundCover(img, zoomLevel = 1.2) {
         drawWidth = drawHeight * imgRatio;
     }
 
-    // Ortala ve paralaks efekti uygula
+    // Yatay ortala
     offsetX = (canvas.width - drawWidth) / 2;
-    offsetY = (canvas.height - drawHeight) / 2 - cameraY * 0.3;
+
+    // Dikey: Arka plandaki zemini oyun zeminine hizala
+    // Arka plan görselinin alt %15'i zemin olduğunu varsayıyoruz
+    // Oyun zemini canvas.height * 0.85'te
+    const gameGroundY = canvas.height * 0.85;
+    const bgGroundRatio = 0.88; // Arka plandaki zeminin oranı (görsel bağlı)
+
+    // Arka planın zeminini oyun zeminine hizala
+    offsetY = gameGroundY - (drawHeight * bgGroundRatio);
+
+    // Kamera hareketi ile paralaks
+    offsetY -= cameraY * 0.25;
 
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 }
