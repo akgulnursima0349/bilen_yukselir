@@ -566,7 +566,7 @@ function startStacking() {
     hook.baseY = cameraY - 80; // Kanca ekranın çok üstünden dönüyor
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
-    hook.speed = 0.012 + (level * 0.001); // Yavaş daire dönüş hızı (radyan)
+    hook.speed = 0.006 + (level * 0.0005); // Çok yavaş daire dönüş hızı
 }
 
 function dropBlock() {
