@@ -966,12 +966,13 @@ function draw() {
         ctx.lineWidth = 4;
         ctx.stroke();
 
-        // Kanca
+        // Kanca - büyütülmüş
+        const hookSize = 160; // Kanca boyutu
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - 50, hookScreenY - 20, 100, 100);
+            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 30, hookSize, hookSize);
         } else {
             ctx.beginPath();
-            ctx.arc(hook.x, hookScreenY, 25, 0, Math.PI * 2);
+            ctx.arc(hook.x, hookScreenY, 35, 0, Math.PI * 2);
             ctx.fillStyle = '#666';
             ctx.fill();
         }
@@ -980,7 +981,7 @@ function draw() {
         const blockScreenY = currentBlock.y - cameraY;
         if (!isBlockDropping) {
             ctx.beginPath();
-            ctx.moveTo(hook.x, hookScreenY + 60);
+            ctx.moveTo(hook.x, hookScreenY + 95); // İp başlangıcı kancanın altından
             ctx.lineTo(currentBlock.x + currentBlock.width / 2, blockScreenY);
             ctx.strokeStyle = '#444';
             ctx.lineWidth = 4;
