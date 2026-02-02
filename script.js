@@ -749,19 +749,27 @@ function update() {
         }
 
         if (!isBlockDropping) {
-            // Dairesel hareket - vinç tam daire çiziyor
+            // Dairesel + zikzak karışık hareket
             hook.circleAngle += hook.speed;
             if (hook.circleAngle > Math.PI * 2) {
                 hook.circleAngle -= Math.PI * 2;
             }
 
-            // Daire merkezi ve yarıçapı - blok genişliğinden büyük
+            // Daire merkezi ve yarıçapı
             const circleCenterX = canvas.width / 2;
-            const circleRadius = currentBlock.width * 1.3; // Blok genişliğinin %130'u kadar yarıçap (daha geniş daire)
+            const circleRadius = currentBlock.width * 1.3;
 
-            // Dairesel pozisyon hesapla
-            hook.x = circleCenterX + Math.cos(hook.circleAngle) * circleRadius;
-            hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.4; // Dikey hareket
+            // Ana dairesel hareket
+            const circleX = Math.cos(hook.circleAngle) * circleRadius;
+            const circleY = Math.sin(hook.circleAngle) * circleRadius * 0.4;
+
+            // Zikzak efekti - daha hızlı küçük salınımlar
+            const zigzagX = Math.sin(hook.circleAngle * 3) * 25; // Yatay zikzak
+            const zigzagY = Math.cos(hook.circleAngle * 2.5) * 15; // Dikey zikzak
+
+            // Pozisyonları birleştir
+            hook.x = circleCenterX + circleX + zigzagX;
+            hook.y = hook.baseY + circleY + zigzagY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
             currentBlock.y = hook.y + 140; // Kanca ipleri bloğun üstünde görünsün
