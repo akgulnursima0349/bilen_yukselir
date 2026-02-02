@@ -749,32 +749,26 @@ function update() {
         }
 
         if (!isBlockDropping) {
-            // Yarım daire + zikzak dönüşümlü hareket
+            // Akıcı karışık hareket - Lissajous benzeri eğri
             hook.circleAngle += hook.speed;
-            if (hook.circleAngle > Math.PI * 2) {
-                hook.circleAngle -= Math.PI * 2;
-            }
 
             const circleCenterX = canvas.width / 2;
             const circleRadius = currentBlock.width * 1.3;
 
-            let moveX, moveY;
+            // Farklı frekanslarda sinüs dalgaları birleştirilerek akıcı hareket
+            // Ana yatay hareket (yavaş)
+            const baseX = Math.sin(hook.circleAngle) * circleRadius;
+            // İkincil yatay hareket (daha hızlı, daha küçük)
+            const secondaryX = Math.sin(hook.circleAngle * 2.3) * circleRadius * 0.3;
 
-            // 0 ile PI arası: Yarım daire (üst yay)
-            if (hook.circleAngle < Math.PI) {
-                moveX = Math.cos(hook.circleAngle) * circleRadius;
-                moveY = -Math.abs(Math.sin(hook.circleAngle)) * circleRadius * 0.3; // Üst yarım daire
-            }
-            // PI ile 2*PI arası: Zikzak hareket
-            else {
-                const zigzagPhase = (hook.circleAngle - Math.PI) / Math.PI; // 0-1 arası
-                // Sağdan sola zikzak
-                moveX = circleRadius - (zigzagPhase * 2 * circleRadius); // Sağdan sola git
-                moveY = Math.sin(zigzagPhase * Math.PI * 4) * 40; // 4 zikzak yukarı aşağı
-            }
+            // Ana dikey hareket
+            const baseY = Math.cos(hook.circleAngle * 1.7) * circleRadius * 0.25;
+            // İkincil dikey hareket (zikzak efekti)
+            const secondaryY = Math.sin(hook.circleAngle * 3.1) * 20;
 
-            hook.x = circleCenterX + moveX;
-            hook.y = hook.baseY + moveY;
+            // Hepsini birleştir - kesintisiz akıcı hareket
+            hook.x = circleCenterX + baseX + secondaryX;
+            hook.y = hook.baseY + baseY + secondaryY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
             currentBlock.y = hook.y + 140; // Kanca ipleri bloğun üstünde görünsün
