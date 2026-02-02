@@ -566,7 +566,7 @@ function startStacking() {
     hook.baseY = cameraY + 15; // Çok yukarıda - ip iyice kısaldı
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
-    hook.speed = 0.018 + (level * 0.002); // Daire dönüş hızı (radyan)
+    hook.speed = 0.012 + (level * 0.001); // Yavaş daire dönüş hızı (radyan)
 }
 
 function dropBlock() {
@@ -722,12 +722,15 @@ function update() {
     updateCamera();
 
     if (gameState === 'stacking' && currentBlock) {
-        // Devrilme animasyonu - çok yavaş ve ekran sonuna kadar
+        // Devrilme animasyonu - yavaş, az dönüş, ekran sonuna kadar
         if (isTipping) {
-            tipAngle += tipSpeed * tipDirection;
-            tipSpeed += 0.015; // Çok yavaş devrilme
-            currentBlock.y += tipSpeed * 0.3;
-            currentBlock.x += tipDirection * tipSpeed * 0.12;
+            // Maksimum 90 derece dönüş (1 çeyrek tur)
+            if (Math.abs(tipAngle) < 90) {
+                tipAngle += tipSpeed * tipDirection;
+            }
+            tipSpeed += 0.02;
+            currentBlock.y += tipSpeed * 0.4;
+            currentBlock.x += tipDirection * tipSpeed * 0.15;
 
             // Ekranın altına düştüğünde bloğu kaldır
             const screenBottom = cameraY + canvas.height + 200;
@@ -737,7 +740,7 @@ function update() {
                 tipSpeed = 0;
                 currentBlock = null;
                 setTimeout(() => showQuestion(), 500);
-            } else if (Math.abs(tipAngle) > 45 && !currentBlock.feedbackShown) {
+            } else if (Math.abs(tipAngle) > 30 && !currentBlock.feedbackShown) {
                 // Feedback'i sadece bir kez göster
                 currentBlock.feedbackShown = true;
                 showFeedback(false);
@@ -761,7 +764,7 @@ function update() {
             hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.4; // Dikey hareket
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 30; // İp çok kısa - kanca ipleri bloğun köşelerine denk geliyor
+            currentBlock.y = hook.y + 55; // Kanca bloğun üstünde, ipler görünür
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
