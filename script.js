@@ -563,7 +563,7 @@ function startStacking() {
     };
 
     hook.x = canvas.width / 2;
-    hook.baseY = cameraY + 150; // Kanca çok daha yukarıda dönüyor
+    hook.baseY = cameraY + 200; // Kanca ekranın üst kısmında dönüyor
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
     hook.speed = 0.012 + (level * 0.001); // Yavaş daire dönüş hızı (radyan)
@@ -959,7 +959,13 @@ function draw() {
         const hookScreenY = hook.y - cameraY;
         const hookSize = 220; // Kanca boyutu
 
-        // Yukarıdan gelen ip kaldırıldı - sadece kanca görünecek
+        // Yukarıdan gelen ip
+        ctx.beginPath();
+        ctx.moveTo(hook.x, 0);
+        ctx.lineTo(hook.x, hookScreenY);
+        ctx.strokeStyle = '#444';
+        ctx.lineWidth = 4;
+        ctx.stroke();
 
         // Kanca
         if (images.hook.complete) {
