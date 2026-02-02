@@ -563,7 +563,7 @@ function startStacking() {
     };
 
     hook.x = canvas.width / 2;
-    hook.baseY = cameraY - 30; // Kanca ekranın üstünden dönüyor, biraz dışarı çıkabilir
+    hook.baseY = cameraY - 80; // Kanca ekranın çok üstünden dönüyor
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
     hook.speed = 0.012 + (level * 0.001); // Yavaş daire dönüş hızı (radyan)
