@@ -188,7 +188,7 @@ let currentBlock = null;
 let hook = { x: 0, y: 80, baseY: 80, speed: 0.02, circleAngle: 0 };
 let isBlockDropping = false;
 let dropSpeed = 0;
-const gravity = 0.25; // Yavaş düşme
+const gravity = 0.12; // Çok yavaş düşme
 const baseScore = 10;
 
 // Devrilme animasyonu için
@@ -563,10 +563,10 @@ function startStacking() {
     };
 
     hook.x = canvas.width / 2;
-    hook.baseY = cameraY + 35; // Daha yukarıda - ip kısaldı
+    hook.baseY = cameraY + 15; // Çok yukarıda - ip iyice kısaldı
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
-    hook.speed = 0.02 + (level * 0.003); // Daire dönüş hızı (radyan)
+    hook.speed = 0.018 + (level * 0.002); // Daire dönüş hızı (radyan)
 }
 
 function dropBlock() {
@@ -722,12 +722,12 @@ function update() {
     updateCamera();
 
     if (gameState === 'stacking' && currentBlock) {
-        // Devrilme animasyonu - yavaş ve ekran sonuna kadar
+        // Devrilme animasyonu - çok yavaş ve ekran sonuna kadar
         if (isTipping) {
             tipAngle += tipSpeed * tipDirection;
-            tipSpeed += 0.04; // Daha yavaş devrilme
-            currentBlock.y += tipSpeed * 0.5;
-            currentBlock.x += tipDirection * tipSpeed * 0.2;
+            tipSpeed += 0.015; // Çok yavaş devrilme
+            currentBlock.y += tipSpeed * 0.3;
+            currentBlock.x += tipDirection * tipSpeed * 0.12;
 
             // Ekranın altına düştüğünde bloğu kaldır
             const screenBottom = cameraY + canvas.height + 200;
@@ -752,16 +752,16 @@ function update() {
                 hook.circleAngle -= Math.PI * 2;
             }
 
-            // Daire merkezi ve yarıçapı - blok genişliğinden biraz büyük
+            // Daire merkezi ve yarıçapı - blok genişliğinden büyük
             const circleCenterX = canvas.width / 2;
-            const circleRadius = currentBlock.width * 0.8; // Blok genişliğinin %80'i kadar yarıçap
+            const circleRadius = currentBlock.width * 1.3; // Blok genişliğinin %130'u kadar yarıçap (daha geniş daire)
 
             // Dairesel pozisyon hesapla
             hook.x = circleCenterX + Math.cos(hook.circleAngle) * circleRadius;
-            hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.5; // Dikey hareket daha az
+            hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.4; // Dikey hareket
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 50; // İp kısaldı, blok daha yakın
+            currentBlock.y = hook.y + 30; // İp çok kısa - kanca ipleri bloğun köşelerine denk geliyor
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
@@ -794,7 +794,7 @@ function update() {
                 }
             } else if (landed === 'tipping') {
                 isTipping = true;
-                tipSpeed = 0.3; // Daha yavaş devrilme başlangıcı
+                tipSpeed = 0.1; // Çok yavaş devrilme başlangıcı
                 dropSpeed = 0;
             } else if (landed === 'missed') {
                 // Blok düşmeye devam etsin, ekrandan çıkana kadar
