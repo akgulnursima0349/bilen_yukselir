@@ -749,27 +749,32 @@ function update() {
         }
 
         if (!isBlockDropping) {
-            // Dairesel + zikzak karışık hareket
+            // Yarım daire + zikzak dönüşümlü hareket
             hook.circleAngle += hook.speed;
             if (hook.circleAngle > Math.PI * 2) {
                 hook.circleAngle -= Math.PI * 2;
             }
 
-            // Daire merkezi ve yarıçapı
             const circleCenterX = canvas.width / 2;
             const circleRadius = currentBlock.width * 1.3;
 
-            // Ana dairesel hareket
-            const circleX = Math.cos(hook.circleAngle) * circleRadius;
-            const circleY = Math.sin(hook.circleAngle) * circleRadius * 0.4;
+            let moveX, moveY;
 
-            // Zikzak efekti - daha hızlı küçük salınımlar
-            const zigzagX = Math.sin(hook.circleAngle * 3) * 25; // Yatay zikzak
-            const zigzagY = Math.cos(hook.circleAngle * 2.5) * 15; // Dikey zikzak
+            // 0 ile PI arası: Yarım daire (üst yay)
+            if (hook.circleAngle < Math.PI) {
+                moveX = Math.cos(hook.circleAngle) * circleRadius;
+                moveY = -Math.abs(Math.sin(hook.circleAngle)) * circleRadius * 0.3; // Üst yarım daire
+            }
+            // PI ile 2*PI arası: Zikzak hareket
+            else {
+                const zigzagPhase = (hook.circleAngle - Math.PI) / Math.PI; // 0-1 arası
+                // Sağdan sola zikzak
+                moveX = circleRadius - (zigzagPhase * 2 * circleRadius); // Sağdan sola git
+                moveY = Math.sin(zigzagPhase * Math.PI * 4) * 40; // 4 zikzak yukarı aşağı
+            }
 
-            // Pozisyonları birleştir
-            hook.x = circleCenterX + circleX + zigzagX;
-            hook.y = hook.baseY + circleY + zigzagY;
+            hook.x = circleCenterX + moveX;
+            hook.y = hook.baseY + moveY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
             currentBlock.y = hook.y + 140; // Kanca ipleri bloğun üstünde görünsün
