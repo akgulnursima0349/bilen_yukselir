@@ -185,7 +185,7 @@ async function loadQuestionsFromJSON(url = 'questions.json') {
 // ============================================
 let tower = [];
 let currentBlock = null;
-let hook = { x: 0, y: 80, baseY: 80, direction: 1, speed: 1.5, swingPhase: 0, swingAngle: 0 };
+let hook = { x: 0, y: 80, baseY: 80, speed: 0.02, circleAngle: 0 };
 let isBlockDropping = false;
 let dropSpeed = 0;
 const gravity = 0.25; // Yavaş düşme
@@ -563,11 +563,10 @@ function startStacking() {
     };
 
     hook.x = canvas.width / 2;
-    hook.baseY = cameraY + 70;
+    hook.baseY = cameraY + 35; // Daha yukarıda - ip kısaldı
     hook.y = hook.baseY;
-    hook.swingPhase = 0;
-    hook.swingAngle = 0;
-    hook.speed = 0.015 + (level * 0.002); // Yavaş sallanma hızı (radyan)
+    hook.circleAngle = 0; // Dairesel hareket açısı
+    hook.speed = 0.02 + (level * 0.003); // Daire dönüş hızı (radyan)
 }
 
 function dropBlock() {
@@ -747,31 +746,22 @@ function update() {
         }
 
         if (!isBlockDropping) {
-            // Sarkaç hareketi - bloğun üzerinde dairesel sallanma
-            hook.swingAngle += hook.speed * hook.direction;
-
-            // Sallanma açısı sınırı (yaklaşık 50 derece = 0.87 radyan)
-            const maxSwingAngle = 0.7;
-            if (hook.swingAngle > maxSwingAngle) {
-                hook.swingAngle = maxSwingAngle;
-                hook.direction = -1;
-            } else if (hook.swingAngle < -maxSwingAngle) {
-                hook.swingAngle = -maxSwingAngle;
-                hook.direction = 1;
+            // Dairesel hareket - vinç tam daire çiziyor
+            hook.circleAngle += hook.speed;
+            if (hook.circleAngle > Math.PI * 2) {
+                hook.circleAngle -= Math.PI * 2;
             }
 
-            // Sarkaç merkezi - kulenin üstü veya ekran ortası
-            const swingCenterX = canvas.width / 2;
-            const swingRadius = Math.min(canvas.width * 0.25, 200); // Sallanma yarıçapı
+            // Daire merkezi ve yarıçapı - blok genişliğinden biraz büyük
+            const circleCenterX = canvas.width / 2;
+            const circleRadius = currentBlock.width * 0.8; // Blok genişliğinin %80'i kadar yarıçap
 
-            // Sarkaç pozisyonu hesapla
-            hook.x = swingCenterX + Math.sin(hook.swingAngle) * swingRadius;
-            hook.swingPhase += 0.06;
-            const verticalSwing = Math.sin(hook.swingPhase) * 10;
-            hook.y = hook.baseY + Math.cos(hook.swingAngle) * 20 + verticalSwing;
+            // Dairesel pozisyon hesapla
+            hook.x = circleCenterX + Math.cos(hook.circleAngle) * circleRadius;
+            hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.5; // Dikey hareket daha az
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 75;
+            currentBlock.y = hook.y + 50; // İp kısaldı, blok daha yakın
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
