@@ -764,7 +764,7 @@ function update() {
             hook.y = hook.baseY + Math.sin(hook.circleAngle) * circleRadius * 0.4; // Dikey hareket
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 55; // Kanca bloğun üstünde, ipler görünür
+            currentBlock.y = hook.y + 75; // Kanca daha yukarıda
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
