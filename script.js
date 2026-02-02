@@ -362,7 +362,7 @@ function drawDebugInfo() {
 }
 
 function getGroundY() {
-    return canvas.height * 0.85;
+    return canvas.height * 0.92; // Platform daha aşağıda
 }
 
 function createReferenceBlock() {
@@ -967,9 +967,9 @@ function draw() {
         ctx.stroke();
 
         // Kanca - büyütülmüş
-        const hookSize = 160; // Kanca boyutu
+        const hookSize = 220; // Kanca boyutu - daha büyük
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 30, hookSize, hookSize);
+            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 40, hookSize, hookSize);
         } else {
             ctx.beginPath();
             ctx.arc(hook.x, hookScreenY, 35, 0, Math.PI * 2);
