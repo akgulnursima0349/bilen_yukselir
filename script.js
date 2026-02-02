@@ -88,7 +88,7 @@ const DeviceDetector = {
         const maxDimension = Math.max(screenWidth, screenHeight);
         const minDimension = Math.min(screenWidth, screenHeight);
 
-        // Akıllı tahta: Büyük dokunmatik ekran (genellikle 1920x1080 veya daha büyük)
+        // Akıllı tahta: Büyük dokunmatik ekran 
         if (touchPoints > 0 && minDimension >= 1000 && maxDimension >= 1800) {
             this.type = 'smartboard';
         }
@@ -185,10 +185,10 @@ async function loadQuestionsFromJSON(url = 'questions.json') {
 // ============================================
 let tower = [];
 let currentBlock = null;
-let hook = { x: 0, y: 80, baseY: 80, direction: 1, speed: 1.5, swingPhase: 0 };
+let hook = { x: 0, y: 80, baseY: 80, direction: 1, speed: 1.5, swingPhase: 0, swingAngle: 0 };
 let isBlockDropping = false;
 let dropSpeed = 0;
-const gravity = 0.5;
+const gravity = 0.25; // Yavaş düşme
 const baseScore = 10;
 
 // Devrilme animasyonu için
@@ -196,6 +196,9 @@ let isTipping = false;
 let tipDirection = 0; // -1: sola, 1: sağa
 let tipAngle = 0;
 let tipSpeed = 0;
+
+// Düşen bloklar (ekrandan çıkana kadar animasyon)
+let fallingBlocks = [];
 
 // Kamera
 let cameraY = 0;
@@ -563,7 +566,8 @@ function startStacking() {
     hook.baseY = cameraY + 70;
     hook.y = hook.baseY;
     hook.swingPhase = 0;
-    hook.speed = 2.5 + (level * 0.1); // Daha hızlı kanca hareketi
+    hook.swingAngle = 0;
+    hook.speed = 0.015 + (level * 0.002); // Yavaş sallanma hızı (radyan)
 }
 
 function dropBlock() {
@@ -719,36 +723,52 @@ function update() {
     updateCamera();
 
     if (gameState === 'stacking' && currentBlock) {
-        // Devrilme animasyonu
+        // Devrilme animasyonu - yavaş ve ekran sonuna kadar
         if (isTipping) {
             tipAngle += tipSpeed * tipDirection;
-            tipSpeed += 0.12;
-            currentBlock.y += tipSpeed * 0.3;
-            currentBlock.x += tipDirection * tipSpeed * 0.15;
+            tipSpeed += 0.04; // Daha yavaş devrilme
+            currentBlock.y += tipSpeed * 0.5;
+            currentBlock.x += tipDirection * tipSpeed * 0.2;
 
-            if (Math.abs(tipAngle) > 90) {
+            // Ekranın altına düştüğünde bloğu kaldır
+            const screenBottom = cameraY + canvas.height + 200;
+            if (currentBlock.y > screenBottom) {
                 isTipping = false;
                 tipAngle = 0;
                 tipSpeed = 0;
-                showFeedback(false);
                 currentBlock = null;
-                setTimeout(() => showQuestion(), 1000);
+                setTimeout(() => showQuestion(), 500);
+            } else if (Math.abs(tipAngle) > 45 && !currentBlock.feedbackShown) {
+                // Feedback'i sadece bir kez göster
+                currentBlock.feedbackShown = true;
+                showFeedback(false);
             }
             return;
         }
 
         if (!isBlockDropping) {
-            hook.x += hook.speed * hook.direction;
+            // Sarkaç hareketi - bloğun üzerinde dairesel sallanma
+            hook.swingAngle += hook.speed * hook.direction;
 
-            if (hook.x > canvas.width - 100) {
+            // Sallanma açısı sınırı (yaklaşık 50 derece = 0.87 radyan)
+            const maxSwingAngle = 0.7;
+            if (hook.swingAngle > maxSwingAngle) {
+                hook.swingAngle = maxSwingAngle;
                 hook.direction = -1;
-            } else if (hook.x < 100) {
+            } else if (hook.swingAngle < -maxSwingAngle) {
+                hook.swingAngle = -maxSwingAngle;
                 hook.direction = 1;
             }
 
-            hook.swingPhase += 0.08;
-            const verticalSwing = Math.sin(hook.swingPhase) * 15;
-            hook.y = hook.baseY + verticalSwing;
+            // Sarkaç merkezi - kulenin üstü veya ekran ortası
+            const swingCenterX = canvas.width / 2;
+            const swingRadius = Math.min(canvas.width * 0.25, 200); // Sallanma yarıçapı
+
+            // Sarkaç pozisyonu hesapla
+            hook.x = swingCenterX + Math.sin(hook.swingAngle) * swingRadius;
+            hook.swingPhase += 0.06;
+            const verticalSwing = Math.sin(hook.swingPhase) * 10;
+            hook.y = hook.baseY + Math.cos(hook.swingAngle) * 20 + verticalSwing;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
             currentBlock.y = hook.y + 75;
@@ -784,12 +804,20 @@ function update() {
                 }
             } else if (landed === 'tipping') {
                 isTipping = true;
-                tipSpeed = 0.8;
+                tipSpeed = 0.3; // Daha yavaş devrilme başlangıcı
                 dropSpeed = 0;
             } else if (landed === 'missed') {
-                showFeedback(false);
-                currentBlock = null;
-                setTimeout(() => showQuestion(), 1000);
+                // Blok düşmeye devam etsin, ekrandan çıkana kadar
+                if (!currentBlock.isFalling) {
+                    currentBlock.isFalling = true;
+                    showFeedback(false);
+                    setTimeout(() => showQuestion(), 800);
+                }
+                // Ekranın altına düştüğünde bloğu kaldır
+                const screenBottom = cameraY + canvas.height + 200;
+                if (currentBlock.y > screenBottom) {
+                    currentBlock = null;
+                }
             }
         }
     }
