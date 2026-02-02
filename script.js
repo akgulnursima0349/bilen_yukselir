@@ -566,7 +566,7 @@ function startStacking() {
     hook.baseY = cameraY - 80; // Kanca ekranın çok üstünden dönüyor
     hook.y = hook.baseY;
     hook.circleAngle = 0; // Dairesel hareket açısı
-    hook.speed = 0.006 + (level * 0.0005); // Çok yavaş daire dönüş hızı
+    hook.speed = 0.004 + (level * 0.0003); // Daha da yavaş dönüş hızı
 }
 
 function dropBlock() {
@@ -755,16 +755,14 @@ function update() {
             const circleCenterX = canvas.width / 2;
             const circleRadius = currentBlock.width * 1.3;
 
-            // Farklı frekanslarda sinüs dalgaları birleştirilerek akıcı hareket
-            // Ana yatay hareket (yavaş)
+            // Daha dairesel hareket + hafif dalgalanma
+            // Ana dairesel hareket (baskın)
             const baseX = Math.sin(hook.circleAngle) * circleRadius;
-            // İkincil yatay hareket (daha hızlı, daha küçük)
-            const secondaryX = Math.sin(hook.circleAngle * 2.3) * circleRadius * 0.3;
+            const baseY = Math.cos(hook.circleAngle) * circleRadius * 0.35;
 
-            // Ana dikey hareket
-            const baseY = Math.cos(hook.circleAngle * 1.7) * circleRadius * 0.25;
-            // İkincil dikey hareket (zikzak efekti)
-            const secondaryY = Math.sin(hook.circleAngle * 3.1) * 20;
+            // Hafif ikincil dalgalanma (küçük)
+            const secondaryX = Math.sin(hook.circleAngle * 2.5) * circleRadius * 0.15;
+            const secondaryY = Math.sin(hook.circleAngle * 2) * 12;
 
             // Hepsini birleştir - kesintisiz akıcı hareket
             hook.x = circleCenterX + baseX + secondaryX;
