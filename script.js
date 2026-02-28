@@ -559,7 +559,11 @@ function startStacking() {
         height: blockDim.height,
         studHeight: blockDim.studHeight,
         color: randomColor,
-        image: images.blocks[randomColor]
+        image: images.blocks[randomColor],
+        velX: 0,
+        rotation: 0,
+        angularVel: 0,
+        bouncedFrom: new Set()
     };
 
     hook.x = canvas.width / 2;
@@ -783,6 +787,47 @@ function update() {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
 
+            // Yatay hız ve dönüş varsa uygula
+            if (currentBlock.velX) currentBlock.x += currentBlock.velX;
+            if (currentBlock.angularVel) {
+                currentBlock.rotation = (currentBlock.rotation || 0) + currentBlock.angularVel;
+            }
+
+            // Kule bloklarına yan çarpışma kontrolü
+            for (const towerBlock of tower) {
+                const bLeft   = currentBlock.x;
+                const bRight  = currentBlock.x + currentBlock.width;
+                const bTop    = currentBlock.y;
+                const bBottom = currentBlock.y + currentBlock.height;
+                const tLeft   = towerBlock.x;
+                const tRight  = towerBlock.x + towerBlock.width;
+                const tTop    = towerBlock.y;
+                const tBottom = towerBlock.y + towerBlock.height;
+
+                const overlapX = bRight > tLeft && bLeft < tRight;
+                const overlapY = bBottom > tTop && bTop < tBottom;
+
+                if (overlapX && overlapY && !currentBlock.bouncedFrom?.has(towerBlock)) {
+                    // Çarpışma! Hangi taraftan çarptığını bul
+                    const fromLeft  = bRight - tLeft;
+                    const fromRight = tRight - bLeft;
+                    const hitFromLeft = fromLeft < fromRight;
+
+                    // Ses çal
+                    SoundManager.play('drop', 0.4);
+
+                    // Yatay sekme
+                    currentBlock.velX = hitFromLeft ? -2.5 : 2.5;
+
+                    // Dönüş başlat
+                    currentBlock.angularVel = hitFromLeft ? -2 : 2;
+
+                    // Aynı bloğa iki kere çarpmasın
+                    if (!currentBlock.bouncedFrom) currentBlock.bouncedFrom = new Set();
+                    currentBlock.bouncedFrom.add(towerBlock);
+                }
+            }
+
             const landed = checkLanding();
 
             if (landed === 'landed') {
@@ -961,7 +1006,8 @@ function draw() {
 
     // Düşen/deviren blok kule bloklarının ARKASINDA görünsün
     if (gameState === 'stacking' && currentBlock && (isBlockDropping || isTipping)) {
-        drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
+        const fallRotation = isTipping ? tipAngle : (currentBlock.rotation || 0);
+        drawLegoBlock(currentBlock, cameraY, fallRotation);
     }
 
     // Kule blokları (düşen bloğun önünde)
