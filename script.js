@@ -959,20 +959,27 @@ function draw() {
         ctx.fill();
     }
 
-    // Kule
+    // Düşen/deviren blok kule bloklarının ARKASINDA görünsün
+    if (gameState === 'stacking' && currentBlock && (isBlockDropping || isTipping)) {
+        drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
+    }
+
+    // Kule blokları (düşen bloğun önünde)
     tower.forEach(block => {
         drawLegoBlock(block, cameraY);
     });
 
-    // Vinç ve blok
+    // Kanca ve kancadaki blok (henüz bırakılmamış)
     if (gameState === 'stacking' && currentBlock) {
         const hookScreenY = hook.y - cameraY;
-        const hookSize = 300; // Kanca boyutu
+        const hookSize = 300;
 
-        // Önce blok çizilir, sonra kanca - kanca blokun önünde görünür
-        drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
+        // Kancadaki blok kule bloklarının önünde
+        if (!isBlockDropping && !isTipping) {
+            drawLegoBlock(currentBlock, cameraY, 0);
+        }
 
-        // Kanca en son çizilir (blokun önünde kalır)
+        // Kanca en son - her şeyin önünde
         if (images.hook.complete) {
             ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 35, hookSize, hookSize);
         } else {
