@@ -611,13 +611,14 @@ function checkLanding() {
             const overlapRight = Math.min(currentBlock.x + currentBlock.width, topBlock.x + topBlock.width);
             const overlap = overlapRight - overlapLeft;
 
-            if (overlap > currentBlock.width * 0.3) {
+            // Yarısı veya daha fazlası denk gelirse tutar, yoksa düşer
+            if (overlap >= currentBlock.width * 0.5) {
                 currentBlock.y = targetY;
                 snapToStudGrid(currentBlock, topBlock);
                 return 'landed';
             }
 
-            if (overlap > 0 && overlap <= currentBlock.width * 0.3) {
+            if (overlap > 0 && overlap < currentBlock.width * 0.5) {
                 currentBlock.y = targetY;
                 const blockCenter = currentBlock.x + currentBlock.width / 2;
                 const topBlockCenter = topBlock.x + topBlock.width / 2;
