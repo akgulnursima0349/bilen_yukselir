@@ -652,6 +652,14 @@ function updateCamera() {
 // ============================================
 // GERİ BİLDİRİM VE KUTLAMA
 // ============================================
+function showBonusPoints() {
+    const bonus = document.createElement('div');
+    bonus.className = 'bonus-points';
+    bonus.textContent = '+5';
+    document.getElementById('gameContainer').appendChild(bonus);
+    setTimeout(() => bonus.remove(), 1200);
+}
+
 function showFeedback(success) {
     const feedback = document.createElement('div');
     feedback.className = `feedback ${success ? 'success' : 'fail'}`;
@@ -788,6 +796,7 @@ function update() {
                     if (centerDiff < 10) {
                         score += 5;
                         scoreDisplay.textContent = score;
+                        showBonusPoints();
                     }
                 }
 
