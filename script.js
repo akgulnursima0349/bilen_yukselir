@@ -1004,13 +1004,12 @@ function draw() {
         ctx.fill();
     }
 
-    // Düşen/deviren blok kule bloklarının ARKASINDA görünsün
-    if (gameState === 'stacking' && currentBlock && (isBlockDropping || isTipping)) {
-        const fallRotation = isTipping ? tipAngle : (currentBlock.rotation || 0);
-        drawLegoBlock(currentBlock, cameraY, fallRotation);
+    // Deviren blok kule bloklarının ARKASINDA görünsün
+    if (gameState === 'stacking' && currentBlock && isTipping) {
+        drawLegoBlock(currentBlock, cameraY, tipAngle);
     }
 
-    // Kule blokları (düşen bloğun önünde)
+    // Kule blokları
     tower.forEach(block => {
         drawLegoBlock(block, cameraY);
     });
@@ -1019,6 +1018,11 @@ function draw() {
     if (gameState === 'stacking' && currentBlock) {
         const hookScreenY = hook.y - cameraY;
         const hookSize = 300;
+
+        // Düşen blok kule bloklarının ÖNÜNDE görünsün (çarpışma görülsün)
+        if (isBlockDropping) {
+            drawLegoBlock(currentBlock, cameraY, currentBlock.rotation || 0);
+        }
 
         // Kancadaki blok kule bloklarının önünde
         if (!isBlockDropping && !isTipping) {
