@@ -964,7 +964,10 @@ function draw() {
         const hookScreenY = hook.y - cameraY;
         const hookSize = 260; // Kanca boyutu - büyütüldü
 
-        // Kanca - biraz aşağı indirildi
+        // Önce blok çizilir, sonra kanca - kanca blokun önünde görünür
+        drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
+
+        // Kanca en son çizilir (blokun önünde kalır)
         if (images.hook.complete) {
             ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 10, hookSize, hookSize);
         } else {
@@ -973,9 +976,6 @@ function draw() {
             ctx.fillStyle = '#666';
             ctx.fill();
         }
-
-        // Blok
-        drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
     }
 
     // Debug kaldırıldı
