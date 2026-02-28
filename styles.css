@@ -289,16 +289,18 @@ body {
 }
 
 .preview-tower img {
-    width: 100px; /* Kancadaki blokla aynı boyut */
+    width: 100px;
     height: auto;
     filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
-    margin-top: -22px; /* Dişler iç içe geçsin */
+    margin-top: -22px;
     display: block;
+    position: relative;
 }
 
-.preview-tower img:first-child {
-    margin-top: 0;
-}
+/* Üstteki blok en önde, altındakiler arkada - doğal kule görünümü */
+.preview-tower img:nth-child(1) { z-index: 3; margin-top: 0; }
+.preview-tower img:nth-child(2) { z-index: 2; }
+.preview-tower img:nth-child(3) { z-index: 1; }
 
 .preview-ground {
     position: absolute;
