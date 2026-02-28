@@ -969,7 +969,7 @@ function draw() {
 
         // Kanca en son çizilir (blokun önünde kalır)
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY + 15, hookSize, hookSize);
+            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 50, hookSize, hookSize);
         } else {
             ctx.beginPath();
             ctx.arc(hook.x, hookScreenY, 40, 0, Math.PI * 2);
