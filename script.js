@@ -964,32 +964,14 @@ function draw() {
         const hookScreenY = hook.y - cameraY;
         const hookSize = 260; // Kanca boyutu - büyütüldü
 
-        // Kanca
+        // Kanca - biraz aşağı indirildi
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 40, hookSize, hookSize);
+            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 10, hookSize, hookSize);
         } else {
             ctx.beginPath();
             ctx.arc(hook.x, hookScreenY, 40, 0, Math.PI * 2);
             ctx.fillStyle = '#666';
             ctx.fill();
-        }
-
-        // Bloğun 4 köşesine ip - kanca altından bloğun köşelerine
-        const blockScreenY = currentBlock.y - cameraY;
-        if (!isBlockDropping) {
-            const ropeStartY = hookScreenY + hookSize * 0.55; // Kancanın alt kısmı
-            const corners = [
-                { x: currentBlock.x,                      y: blockScreenY }, // Sol üst
-                { x: currentBlock.x + currentBlock.width, y: blockScreenY }, // Sağ üst
-            ];
-            ctx.strokeStyle = '#555';
-            ctx.lineWidth = 3;
-            corners.forEach(corner => {
-                ctx.beginPath();
-                ctx.moveTo(hook.x, ropeStartY);
-                ctx.lineTo(corner.x, corner.y);
-                ctx.stroke();
-            });
         }
 
         // Blok
