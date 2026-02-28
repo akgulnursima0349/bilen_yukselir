@@ -962,7 +962,7 @@ function draw() {
     // Vinç ve blok
     if (gameState === 'stacking' && currentBlock) {
         const hookScreenY = hook.y - cameraY;
-        const hookSize = 320; // Kanca boyutu - büyütüldü
+        const hookSize = 270; // Kanca boyutu
 
         // Önce blok çizilir, sonra kanca - kanca blokun önünde görünür
         drawLegoBlock(currentBlock, cameraY, isTipping ? tipAngle : 0);
