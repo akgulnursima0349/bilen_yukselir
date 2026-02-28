@@ -969,15 +969,6 @@ function draw() {
 
         // Kanca en son çizilir (blokun önünde kalır)
         if (images.hook.complete) {
-            // Görseldeki üst ipi uzatmak için çizgi - hook görselinin üst kenarından yukarıya
-            const hookTop = hookScreenY - 35;
-            ctx.beginPath();
-            ctx.moveTo(hook.x, hookTop);
-            ctx.lineTo(hook.x, hookTop - 60); // 60px yukarı uzat
-            ctx.strokeStyle = '#6b4c2a'; // Hook görselindeki ip rengiyle uyumlu
-            ctx.lineWidth = 6;
-            ctx.stroke();
-
             ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 35, hookSize, hookSize);
         } else {
             ctx.beginPath();
