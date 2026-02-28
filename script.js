@@ -790,15 +790,10 @@ function update() {
                 level++;
                 levelDisplay.textContent = `${level}/${maxLevel}`;
 
-                if (tower.length > 1) {
-                    const topBlock = tower[tower.length - 2];
-                    const centerDiff = Math.abs((currentBlock.x + currentBlock.width/2) - (topBlock.x + topBlock.width/2));
-                    if (centerDiff < 10) {
-                        score += 5;
-                        scoreDisplay.textContent = score;
-                        showBonusPoints();
-                    }
-                }
+                // Her başarılı yerleştirmede +5 puan
+                score += 5;
+                scoreDisplay.textContent = score;
+                showBonusPoints();
 
                 showFeedback(true);
                 currentBlock = null;
