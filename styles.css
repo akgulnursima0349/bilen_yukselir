@@ -292,7 +292,8 @@ body {
     width: 100px; /* Kancadaki blokla aynı boyut */
     height: auto;
     filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
-    margin-top: -8px;
+    margin-top: -22px; /* Dişler iç içe geçsin */
+    display: block;
 }
 
 .preview-tower img:first-child {
@@ -963,6 +964,12 @@ body {
     .preview-tower img, .crane-block img {
         width: 130px;
     }
+    .preview-tower img {
+        margin-top: -28px;
+    }
+    .preview-tower img:first-child {
+        margin-top: 0;
+    }
     .preview-crane img.hook-img {
         width: 95px;
     }
@@ -1082,6 +1089,12 @@ body {
     }
     .preview-tower img, .crane-block img {
         width: 45px;
+    }
+    .preview-tower img {
+        margin-top: -10px;
+    }
+    .preview-tower img:first-child {
+        margin-top: 0;
     }
     .preview-crane img.hook-img {
         width: 32px;
