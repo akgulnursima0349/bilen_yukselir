@@ -233,23 +233,13 @@ body {
 
 .preview-crane {
     position: absolute;
-    top: 0;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: craneSwing 3s ease-in-out infinite;
-}
-
-/* Çerçeve üstünden kancaya inen ip */
-.preview-crane::before {
-    content: '';
-    display: block;
-    width: 3px;
-    height: 20px;
-    background-color: #444;
-    margin-bottom: -4px;
 }
 
 .preview-crane img.hook-img {
