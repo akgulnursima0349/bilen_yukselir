@@ -769,7 +769,7 @@ function update() {
             hook.y = hook.baseY + baseY + secondaryY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 140; // Kanca ipleri bloğun üstünde görünsün
+            currentBlock.y = hook.y + 220; // Blok kancadan aşağıda, ipler görünür
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
@@ -962,35 +962,34 @@ function draw() {
     // Vinç ve blok
     if (gameState === 'stacking' && currentBlock) {
         const hookScreenY = hook.y - cameraY;
-        const hookSize = 220; // Kanca boyutu
-
-        // Yukarıdan gelen ip
-        ctx.beginPath();
-        ctx.moveTo(hook.x, 0);
-        ctx.lineTo(hook.x, hookScreenY);
-        ctx.strokeStyle = '#444';
-        ctx.lineWidth = 4;
-        ctx.stroke();
+        const hookSize = 260; // Kanca boyutu - büyütüldü
 
         // Kanca
         if (images.hook.complete) {
             ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 40, hookSize, hookSize);
         } else {
             ctx.beginPath();
-            ctx.arc(hook.x, hookScreenY, 35, 0, Math.PI * 2);
+            ctx.arc(hook.x, hookScreenY, 40, 0, Math.PI * 2);
             ctx.fillStyle = '#666';
             ctx.fill();
         }
 
-        // Bloğa ip
+        // Bloğun 4 köşesine ip - kanca altından bloğun köşelerine
         const blockScreenY = currentBlock.y - cameraY;
         if (!isBlockDropping) {
-            ctx.beginPath();
-            ctx.moveTo(hook.x, hookScreenY + 95); // İp başlangıcı kancanın altından
-            ctx.lineTo(currentBlock.x + currentBlock.width / 2, blockScreenY);
-            ctx.strokeStyle = '#444';
-            ctx.lineWidth = 4;
-            ctx.stroke();
+            const ropeStartY = hookScreenY + hookSize * 0.55; // Kancanın alt kısmı
+            const corners = [
+                { x: currentBlock.x,                      y: blockScreenY }, // Sol üst
+                { x: currentBlock.x + currentBlock.width, y: blockScreenY }, // Sağ üst
+            ];
+            ctx.strokeStyle = '#555';
+            ctx.lineWidth = 3;
+            corners.forEach(corner => {
+                ctx.beginPath();
+                ctx.moveTo(hook.x, ropeStartY);
+                ctx.lineTo(corner.x, corner.y);
+                ctx.stroke();
+            });
         }
 
         // Blok
