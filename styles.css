@@ -245,6 +245,7 @@ body {
 .preview-crane .rope-img {
     width: 14px;
     height: 80px;
+    margin-top: -5px;
     background: url('Assets/rope.png') center / 100% 100% no-repeat;
 }
 

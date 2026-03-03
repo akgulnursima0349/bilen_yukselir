@@ -784,8 +784,7 @@ function update() {
             hook.y = hook.baseY + baseY + secondaryY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            // hook.png 287x196 oranı → hookW=300 iken hookH≈205; blok kancaya yakın
-            currentBlock.y = hook.y + 165;
+            currentBlock.y = hook.y + 220;
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
@@ -1027,18 +1026,20 @@ function draw() {
             drawLegoBlock(currentBlock, cameraY, 0);
         }
 
-        // Dikey ip: canvas tepesinden kancaya kadar (yükseklik pozitif olmalı)
-        if (images.rope.complete && hookScreenY > 0) {
+        // hook.png 287×196 → 300×205; eski combined görselle aynı pozisyona gel
+        const hookW = 300;
+        const hookH = Math.round(hookW * 196 / 287); // ≈205
+        const hookDrawY = hookScreenY + 45; // köşe ipleri eski görselle aynı yerde çıksın
+
+        // Dikey ip: canvas tepesinden hook pulley'ine kadar
+        if (images.rope.complete && hookDrawY > 0) {
             const ropeW = 20;
-            ctx.drawImage(images.rope, hook.x - ropeW / 2, 0, ropeW, hookScreenY);
+            ctx.drawImage(images.rope, hook.x - ropeW / 2, 0, ropeW, hookDrawY);
         }
 
-        // Kanca en son - her şeyin önünde
-        // hook.png 287×196 → hookW=300, hookH≈205
-        const hookW = 300;
-        const hookH = Math.round(hookW * 196 / 287);
+        // Kanca
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - hookW / 2, hookScreenY, hookW, hookH);
+            ctx.drawImage(images.hook, hook.x - hookW / 2, hookDrawY, hookW, hookH);
         } else {
             ctx.beginPath();
             ctx.arc(hook.x, hookScreenY, 40, 0, Math.PI * 2);
