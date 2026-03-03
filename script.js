@@ -578,7 +578,6 @@ function startStacking() {
 function dropBlock() {
     if (gameState === 'stacking' && !isBlockDropping && currentBlock) {
         isBlockDropping = true;
-        SoundManager.play('drop', 0.5);
     }
 }
 
