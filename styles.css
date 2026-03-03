@@ -231,22 +231,28 @@ body {
     z-index: 10;
 }
 
-.preview-crane {
+/* Sabit ip - çerçeve üstüne yapışık */
+.preview-rope {
     position: absolute;
     top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 80px;
+    background: url('Assets/rope.png') center / 100% 100% no-repeat;
+    z-index: 11;
+}
+
+/* Salınan kanca + blok - ip bitiminden başlar */
+.preview-crane {
+    position: absolute;
+    top: 75px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: craneSwing 3s ease-in-out infinite;
-}
-
-.preview-crane .rope-img {
-    width: 14px;
-    height: 80px;
-    margin-top: -5px;
-    background: url('Assets/rope.png') center / 100% 100% no-repeat;
 }
 
 .preview-crane img.hook-img {
@@ -1001,9 +1007,12 @@ body {
     .preview-tower img:first-child {
         margin-top: 0;
     }
-    .preview-crane .rope-img {
+    .preview-rope {
         width: 16px;
         height: 100px;
+    }
+    .preview-crane {
+        top: 95px;
     }
     .preview-crane img.hook-img {
         width: 95px;
@@ -1131,9 +1140,12 @@ body {
     .preview-tower img:first-child {
         margin-top: 0;
     }
-    .preview-crane .rope-img {
+    .preview-rope {
         width: 6px;
         height: 40px;
+    }
+    .preview-crane {
+        top: 38px;
     }
     .preview-crane img.hook-img {
         width: 32px;
@@ -1262,9 +1274,12 @@ body {
     .preview-tower img, .crane-block img {
         width: 52px;
     }
-    .preview-crane .rope-img {
+    .preview-rope {
         width: 7px;
         height: 45px;
+    }
+    .preview-crane {
+        top: 43px;
     }
     .preview-crane img.hook-img {
         width: 38px;
