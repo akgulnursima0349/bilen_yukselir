@@ -242,10 +242,10 @@ body {
     animation: craneSwing 3s ease-in-out infinite;
 }
 
-.preview-crane img.rope-img {
+.preview-crane .rope-img {
     width: 14px;
-    height: 90px;
-    object-fit: fill;
+    height: 80px;
+    background: url('Assets/rope.png') center / 100% 100% no-repeat;
 }
 
 .preview-crane img.hook-img {
@@ -1000,7 +1000,7 @@ body {
     .preview-tower img:first-child {
         margin-top: 0;
     }
-    .preview-crane img.rope-img {
+    .preview-crane .rope-img {
         width: 16px;
         height: 100px;
     }
@@ -1130,7 +1130,7 @@ body {
     .preview-tower img:first-child {
         margin-top: 0;
     }
-    .preview-crane img.rope-img {
+    .preview-crane .rope-img {
         width: 6px;
         height: 40px;
     }
@@ -1261,7 +1261,7 @@ body {
     .preview-tower img, .crane-block img {
         width: 52px;
     }
-    .preview-crane img.rope-img {
+    .preview-crane .rope-img {
         width: 7px;
         height: 45px;
     }

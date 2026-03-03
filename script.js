@@ -1027,10 +1027,10 @@ function draw() {
             drawLegoBlock(currentBlock, cameraY, 0);
         }
 
-        // Dikey ip: ekranın tepesinden kancaya kadar
-        if (images.rope.complete) {
+        // Dikey ip: canvas tepesinden kancaya kadar (yükseklik pozitif olmalı)
+        if (images.rope.complete && hookScreenY > 0) {
             const ropeW = 20;
-            ctx.drawImage(images.rope, hook.x - ropeW / 2, -50, ropeW, hookScreenY + 50);
+            ctx.drawImage(images.rope, hook.x - ropeW / 2, 0, ropeW, hookScreenY);
         }
 
         // Kanca en son - her şeyin önünde
