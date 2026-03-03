@@ -1027,9 +1027,9 @@ function draw() {
         }
 
         // hook.png 287×196 → 300×205; eski combined görselle aynı pozisyona gel
-        const hookW = 300;
+        const hookW = 270;
         const hookH = Math.round(hookW * 196 / 287); // ≈205
-        const hookDrawY = hookScreenY + 45; // köşe ipleri eski görselle aynı yerde çıksın
+        const hookDrawY = hookScreenY + 88; // köşe ipleri eski görselle aynı yerde çıksın
 
         // Dikey ip: canvas tepesinden hook pulley'ine kadar
         if (images.rope.complete && hookDrawY > 0) {

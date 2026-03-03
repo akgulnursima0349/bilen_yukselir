@@ -244,10 +244,12 @@ body {
 }
 
 .preview-crane img.rope-img {
-    width: 14px;
+    width: 12px;
     height: 80px;
-    object-fit: fill;
+    object-fit: cover;
+    object-position: top;
     display: block;
+    margin-left: 5px;
 }
 
 .preview-crane img.hook-img {
@@ -1003,8 +1005,10 @@ body {
         margin-top: 0;
     }
     .preview-crane img.rope-img {
-        width: 16px;
+        width: 17px;
         height: 100px;
+        object-fit: cover;
+        object-position: top;
     }
     .preview-crane {
         top: 0;
@@ -1136,8 +1140,10 @@ body {
         margin-top: 0;
     }
     .preview-crane img.rope-img {
-        width: 6px;
+        width: 10px;
         height: 40px;
+        object-fit: cover;
+        object-position: top;
     }
     .preview-crane {
         top: 0;
@@ -1270,8 +1276,10 @@ body {
         width: 52px;
     }
     .preview-crane img.rope-img {
-        width: 7px;
+        width: 12px;
         height: 45px;
+        object-fit: cover;
+        object-position: top;
     }
     .preview-crane {
         top: 0;

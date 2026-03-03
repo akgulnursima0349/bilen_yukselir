@@ -1,110 +1,104 @@
 {
   "questions": [
     {
-      "question": "Hangi gezegen Güneş'e en yakındır?",
-      "options": ["Merkür", "Venüs", "Mars", "Dünya"],
+      "question": "Türkiye'nin başkenti neresidir?",
+      "options": ["İstanbul", "İzmir", "Ankara", "Bursa"],
+      "correct": 2
+    },
+    {
+      "question": "İnsan vücudunda kaç kemik vardır?",
+      "options": ["106", "206", "306", "406"],
+      "correct": 1
+    },
+    {
+      "question": "Hangi gezegen en büyüktür?",
+      "options": ["Dünya", "Satürn", "Jüpiter", "Neptün"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi hayvan en hızlı koşar?",
+      "options": ["Aslan", "Çita", "Leopar", "At"],
+      "correct": 1
+    },
+    {
+      "question": "Okyanusların yüzde kaçı tuz içerir?",
+      "options": ["%1", "%3,5", "%10", "%20"],
+      "correct": 1
+    },
+    {
+      "question": "Hangi ülke en kalabalık nüfusa sahiptir?",
+      "options": ["ABD", "Rusya", "Hindistan", "Brezilya"],
+      "correct": 2
+    },
+    {
+      "question": "Işık bir yılda kaç kilometre yol alır?",
+      "options": ["9,5 milyon km", "9,5 milyar km", "9,5 trilyon km", "9,5 milyar km"],
+      "correct": 2
+    },
+    {
+      "question": "Hangi element en hafif elementtir?",
+      "options": ["Oksijen", "Azot", "Hidrojen", "Helyum"],
+      "correct": 2
+    },
+    {
+      "question": "Bir yıl kaç gündür?",
+      "options": ["354", "365", "366", "360"],
+      "correct": 1
+    },
+    {
+      "question": "Kalp bir dakikada kaç kez atar?",
+      "options": ["40-50", "60-100", "120-150", "20-30"],
+      "correct": 1
+    },
+    {
+      "question": "DNA'nın açılımı nedir?",
+      "options": ["Deoksiribonükleik Asit", "Dinükleik Asit", "Diribonükleik Asit", "Difosforik Asit"],
       "correct": 0
     },
     {
-      "question": "Gökkuşağında kaç renk vardır?",
-      "options": ["5", "6", "7", "8"],
+      "question": "Hangi organ kanı temizler?",
+      "options": ["Kalp", "Akciğer", "Böbrek", "Mide"],
       "correct": 2
     },
     {
-      "question": "Arılar ne üretir?",
-      "options": ["Süt", "Bal", "Yumurta", "Peynir"],
+      "question": "Pi sayısının ilk üç basamağı nedir?",
+      "options": ["3,12", "3,14", "3,16", "3,18"],
       "correct": 1
     },
     {
-      "question": "Bir yılda kaç ay vardır?",
-      "options": ["10", "11", "12", "13"],
-      "correct": 2
-    },
-    {
-      "question": "Hangi hayvan havlamaz?",
-      "options": ["Köpek", "Kedi", "Kurt", "Tilki"],
-      "correct": 1
-    },
-    {
-      "question": "Güneş hangi yönden doğar?",
-      "options": ["Batı", "Kuzey", "Güney", "Doğu"],
+      "question": "Hangi vitamin güneş ışığından elde edilir?",
+      "options": ["A Vitamini", "B Vitamini", "C Vitamini", "D Vitamini"],
       "correct": 3
     },
     {
-      "question": "Su hangi sıcaklıkta donar?",
-      "options": ["10°C", "0°C", "-10°C", "5°C"],
+      "question": "Dünyanın en uzun nehri hangisidir?",
+      "options": ["Amazon", "Nil", "Yangtze", "Mississippi"],
       "correct": 1
     },
     {
-      "question": "Fil hangi kıtada yaşar?",
-      "options": ["Avrupa", "Antarktika", "Afrika", "Avustralya"],
+      "question": "Ses boşlukta ilerleyebilir mi?",
+      "options": ["Evet, hızla ilerler", "Evet, yavaşça ilerler", "Hayır, ilerleyemez", "Sadece ısıyla ilerler"],
       "correct": 2
     },
     {
-      "question": "Hangi meyve sarı renklidir?",
-      "options": ["Elma", "Muz", "Üzüm", "Erik"],
+      "question": "Hangi hayvan memelilerin en büyüğüdür?",
+      "options": ["Fil", "Zürafa", "Mavi balina", "Beyaz ayı"],
+      "correct": 2
+    },
+    {
+      "question": "Bir karenin kaç kenarı vardır?",
+      "options": ["3", "4", "5", "6"],
       "correct": 1
     },
     {
-      "question": "Bir üçgenin kaç kenarı vardır?",
-      "options": ["2", "3", "4", "5"],
-      "correct": 1
+      "question": "Hangi ülke en fazla altın üretir?",
+      "options": ["ABD", "Avustralya", "Rusya", "Çin"],
+      "correct": 3
     },
     {
-      "question": "Hangi hayvan uçabilir?",
-      "options": ["Balık", "Yılan", "Kuş", "Kaplumbağa"],
+      "question": "Beyin vücuttaki enerjinin yüzde kaçını kullanır?",
+      "options": ["%5", "%10", "%20", "%40"],
       "correct": 2
-    },
-    {
-      "question": "Bir haftada kaç gün vardır?",
-      "options": ["5", "6", "7", "8"],
-      "correct": 2
-    },
-    {
-      "question": "Hangi renk kırmızı ve mavi karışımıdır?",
-      "options": ["Turuncu", "Yeşil", "Mor", "Sarı"],
-      "correct": 2
-    },
-    {
-      "question": "Penguenler nerede yaşar?",
-      "options": ["Çölde", "Ormanda", "Antarktika'da", "Dağda"],
-      "correct": 2
-    },
-    {
-      "question": "5 + 3 kaç eder?",
-      "options": ["6", "7", "8", "9"],
-      "correct": 2
-    },
-    {
-      "question": "Hangi hayvan yavaş hareket eder?",
-      "options": ["Çita", "Kaplumbağa", "Tavşan", "Kartal"],
-      "correct": 1
-    },
-    {
-      "question": "Hangi sebze turuncu renklidir?",
-      "options": ["Domates", "Havuç", "Salatalık", "Patlıcan"],
-      "correct": 1
-    },
-    {
-      "question": "10 - 4 kaç eder?",
-      "options": ["5", "6", "7", "8"],
-      "correct": 1
-    },
-    {
-      "question": "Hangi mevsimde yapraklar dökülür?",
-      "options": ["İlkbahar", "Yaz", "Sonbahar", "Kış"],
-      "correct": 2
-    },
-    {
-      "question": "2 x 3 kaç eder?",
-      "options": ["5", "6", "7", "8"],
-      "correct": 1
-    },
-    {
-      "question": "Bu hayvanın adı nedir?",
-      "questionImage": "Assets/questions/lion.png",
-      "options": ["Aslan", "Kaplan", "Leopar", "Çita"],
-      "correct": 0
     }
   ],
 
