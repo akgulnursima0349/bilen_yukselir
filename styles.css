@@ -242,6 +242,12 @@ body {
     animation: craneSwing 3s ease-in-out infinite;
 }
 
+.preview-crane img.rope-img {
+    width: 12px;
+    height: 65px;
+    object-fit: fill;
+}
+
 .preview-crane img.hook-img {
     width: 90px;
     height: auto;
@@ -994,6 +1000,10 @@ body {
     .preview-tower img:first-child {
         margin-top: 0;
     }
+    .preview-crane img.rope-img {
+        width: 14px;
+        height: 75px;
+    }
     .preview-crane img.hook-img {
         width: 95px;
     }
@@ -1119,6 +1129,10 @@ body {
     }
     .preview-tower img:first-child {
         margin-top: 0;
+    }
+    .preview-crane img.rope-img {
+        width: 5px;
+        height: 28px;
     }
     .preview-crane img.hook-img {
         width: 32px;
@@ -1246,6 +1260,10 @@ body {
     }
     .preview-tower img, .crane-block img {
         width: 52px;
+    }
+    .preview-crane img.rope-img {
+        width: 6px;
+        height: 35px;
     }
     .preview-crane img.hook-img {
         width: 38px;

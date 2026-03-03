@@ -223,6 +223,7 @@ const blockColors = [
 // Görseller
 const images = {
     hook: new Image(),
+    rope: new Image(),
     sun: new Image(),
     blocks: {}
 };
@@ -233,6 +234,7 @@ blockColors.forEach(color => {
 });
 
 images.hook.src = 'Assets/hook.png';
+images.rope.src = 'Assets/rope.png';
 images.sun.src = 'Assets/Sun.png';
 
 // ============================================
@@ -782,7 +784,8 @@ function update() {
             hook.y = hook.baseY + baseY + secondaryY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            currentBlock.y = hook.y + 220; // Blok kancadan aşağıda, ipler görünür
+            // hook.png 287x196 oranı → hookW=300 iken hookH≈205; blok ip uçlarına denk gelsin
+            currentBlock.y = hook.y + 205;
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;
@@ -1018,16 +1021,24 @@ function draw() {
     // Kanca ve kancadaki blok (henüz bırakılmamış)
     if (gameState === 'stacking' && currentBlock) {
         const hookScreenY = hook.y - cameraY;
-        const hookSize = 300;
 
         // Kancadaki blok kule bloklarının önünde
         if (!isBlockDropping && !isTipping) {
             drawLegoBlock(currentBlock, cameraY, 0);
         }
 
+        // Dikey ip: ekranın tepesinden kancaya kadar
+        if (images.rope.complete) {
+            const ropeW = 20;
+            ctx.drawImage(images.rope, hook.x - ropeW / 2, -50, ropeW, hookScreenY + 50);
+        }
+
         // Kanca en son - her şeyin önünde
+        // hook.png 287×196 → hookW=300, hookH≈205
+        const hookW = 300;
+        const hookH = Math.round(hookW * 196 / 287);
         if (images.hook.complete) {
-            ctx.drawImage(images.hook, hook.x - hookSize/2, hookScreenY - 35, hookSize, hookSize);
+            ctx.drawImage(images.hook, hook.x - hookW / 2, hookScreenY, hookW, hookH);
         } else {
             ctx.beginPath();
             ctx.arc(hook.x, hookScreenY, 40, 0, Math.PI * 2);
