@@ -784,8 +784,8 @@ function update() {
             hook.y = hook.baseY + baseY + secondaryY;
 
             currentBlock.x = hook.x - currentBlock.width / 2;
-            // hook.png 287x196 oranı → hookW=300 iken hookH≈205; blok ip uçlarına denk gelsin
-            currentBlock.y = hook.y + 205;
+            // hook.png 287x196 oranı → hookW=300 iken hookH≈205; blok kancaya yakın
+            currentBlock.y = hook.y + 165;
         } else {
             dropSpeed += gravity;
             currentBlock.y += dropSpeed;

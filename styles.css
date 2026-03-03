@@ -233,7 +233,7 @@ body {
 
 .preview-crane {
     position: absolute;
-    top: -15px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -243,8 +243,8 @@ body {
 }
 
 .preview-crane img.rope-img {
-    width: 12px;
-    height: 65px;
+    width: 14px;
+    height: 90px;
     object-fit: fill;
 }
 
@@ -1001,8 +1001,8 @@ body {
         margin-top: 0;
     }
     .preview-crane img.rope-img {
-        width: 14px;
-        height: 75px;
+        width: 16px;
+        height: 100px;
     }
     .preview-crane img.hook-img {
         width: 95px;
@@ -1131,8 +1131,8 @@ body {
         margin-top: 0;
     }
     .preview-crane img.rope-img {
-        width: 5px;
-        height: 28px;
+        width: 6px;
+        height: 40px;
     }
     .preview-crane img.hook-img {
         width: 32px;
@@ -1262,8 +1262,8 @@ body {
         width: 52px;
     }
     .preview-crane img.rope-img {
-        width: 6px;
-        height: 35px;
+        width: 7px;
+        height: 45px;
     }
     .preview-crane img.hook-img {
         width: 38px;
