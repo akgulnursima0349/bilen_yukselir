@@ -476,12 +476,14 @@ body {
 }
 
 .options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
 }
 
 .option-btn {
+    flex: 0 0 calc(50% - 6px);
     background: linear-gradient(180deg, #4ECDC4 0%, #44A08D 100%);
     color: white;
     border: none;
