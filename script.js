@@ -75,6 +75,39 @@ const SoundManager = {
 };
 
 // ============================================
+// SORU / ŞIK SES OYNATMA
+// ============================================
+let currentQuestionAudio = null;
+
+function stopQuestionAudio() {
+    if (currentQuestionAudio) {
+        currentQuestionAudio.pause();
+        currentQuestionAudio.currentTime = 0;
+        currentQuestionAudio = null;
+    }
+}
+
+function createAudioBtn(audioPath, label) {
+    const btn = document.createElement('button');
+    btn.className = 'audio-btn';
+    btn.setAttribute('aria-label', 'Sesli dinle');
+    btn.textContent = label != null ? `🔊 ${label}` : '🔊';
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stopQuestionAudio();
+        const audio = new Audio(audioPath);
+        currentQuestionAudio = audio;
+        btn.classList.add('playing');
+        audio.play().catch(() => {});
+        audio.addEventListener('ended', () => {
+            currentQuestionAudio = null;
+            btn.classList.remove('playing');
+        });
+    });
+    return btn;
+}
+
+// ============================================
 // CİHAZ TESPİT SİSTEMİ
 // ============================================
 const DeviceDetector = {
@@ -429,9 +462,12 @@ function showQuestion() {
     // Soru metnini ve görselini göster
     const modalContent = document.querySelector('.modal-content');
 
-    // Önceki soru görselini temizle
+    // Önceki soru görseli ve ses alanlarını temizle
+    stopQuestionAudio();
     const existingImg = modalContent.querySelector('.question-image');
     if (existingImg) existingImg.remove();
+    const existingAudioParts = modalContent.querySelector('.audio-parts-area');
+    if (existingAudioParts) existingAudioParts.remove();
 
     // Soru görseli varsa ekle
     if (currentQuestion.questionImage) {
@@ -442,31 +478,56 @@ function showQuestion() {
         modalContent.insertBefore(img, questionText);
     }
 
-    questionText.textContent = currentQuestion.question;
+    // Soru metni + tek ses butonu
+    questionText.innerHTML = '';
+    const qSpan = document.createElement('span');
+    qSpan.textContent = currentQuestion.question;
+    questionText.appendChild(qSpan);
+    if (currentQuestion.audio) {
+        questionText.appendChild(createAudioBtn(currentQuestion.audio));
+    }
+
+    // audio_parts: konuşma balonları için numaralı ses butonları
+    if (currentQuestion.audio_parts && currentQuestion.audio_parts.length > 0) {
+        const partsDiv = document.createElement('div');
+        partsDiv.className = 'audio-parts-area';
+        currentQuestion.audio_parts.forEach((path, i) => {
+            if (path) partsDiv.appendChild(createAudioBtn(path, i + 1));
+        });
+        optionsGrid.parentNode.insertBefore(partsDiv, optionsGrid);
+    }
 
     // Şıkları oluştur
     optionsGrid.innerHTML = '';
     currentQuestion.options.forEach((option, index) => {
         const btn = document.createElement('button');
 
-        // Şık görsel içeriyor mu kontrol et
+        // Şık görsel/ses içeriyor mu kontrol et
         const isObjectOption = typeof option === 'object' && option !== null;
         const hasImage = isObjectOption && option.image;
+        const hasAudio = isObjectOption && option.audio;
         const optionText = isObjectOption ? option.text : option;
 
-        btn.className = 'option-btn' + (hasImage ? ' with-image' : '');
+        btn.className = 'option-btn';
+        if (hasImage) btn.classList.add('with-image');
+        if (hasAudio) btn.classList.add('has-audio');
+
+        if (hasAudio) {
+            btn.appendChild(createAudioBtn(option.audio, null));
+        }
 
         if (hasImage) {
             const img = document.createElement('img');
             img.src = option.image;
             img.alt = optionText;
             btn.appendChild(img);
-
             const span = document.createElement('span');
             span.textContent = optionText;
             btn.appendChild(span);
         } else {
-            btn.textContent = optionText;
+            const span = document.createElement('span');
+            span.textContent = optionText;
+            btn.appendChild(span);
         }
 
         btn.onclick = () => checkAnswer(index, btn);
@@ -504,6 +565,7 @@ function showQuestion() {
             clearInterval(timerInterval);
             timeLeft = 0;
             timerValue.textContent = "0";
+            stopQuestionAudio();
             SoundManager.play('wrong', 0.6);
         }
     }, 100);
@@ -512,6 +574,7 @@ function showQuestion() {
 // Check Answer
 function checkAnswer(selectedIndex, btn) {
     clearInterval(timerInterval);
+    stopQuestionAudio();
     SoundManager.play('click', 0.5);
 
     const buttons = optionsGrid.querySelectorAll('.option-btn');
